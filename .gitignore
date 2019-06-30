@@ -1,0 +1,42 @@
+# config
+.slack_token
+*.tmp
+
+# data
+data/external/AvSigversion_Threats.csv
+data/external/sparse_test.csv
+data/external/sparse_train.csv
+data/features/*
+data/model/*
+data/oof/*
+data/submit/*
+data/subset/*
+data/validations/*
+*.npz
+
+# features & src
+__pycache__
+
+# importance
+
+# input
+input/*
+
+# log
+
+# notebook
+.*.ipynb
+.ipynb_checkpoints
+
+# trash
+.DS_Store
+tmp/*
+
+# venv
+.venv/*
+
+#version
+.python-version
+
+#  gitkeep
+!.gitkeep
