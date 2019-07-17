@@ -24,6 +24,9 @@ input/*
 
 # log
 
+# model
+model/*
+
 # notebook
 .*.ipynb
 .ipynb_checkpoints
