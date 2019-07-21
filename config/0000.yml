@@ -1,0 +1,23 @@
+task: regression
+
+dataloader:
+  preprocess: null
+  transform: null
+
+train:
+  model:
+    name: resnet18
+    pretrained: True
+  optimiser:
+    name: Adam
+    params:
+      lr: 0.001
+  scheduler:
+    name: StepLR
+    params:
+      step_size: 10
+  loss:
+    name: MSE
+
+inference:
+  null
