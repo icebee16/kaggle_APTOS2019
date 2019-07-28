@@ -5,7 +5,7 @@ import torch
 from torchvision import transforms
 
 from process import Process
-from dataloader import custum_transforms
+from dataloader import custom_transforms
 
 
 class ClassifierProcess(Process):
@@ -73,8 +73,8 @@ class ClassifierProcess(Process):
 
         transform = []
         for tf in transforms_config:
-            if hasattr(custum_transforms, tf["function"]):
-                transform.append(getattr(custum_transforms, tf["function"])(**tf["params"]))
+            if hasattr(custom_transforms, tf["function"]):
+                transform.append(getattr(custom_transforms, tf["function"])(**tf["params"]))
             elif hasattr(transforms, tf["function"]):
                 transform.append(getattr(transforms, tf["function"])(**tf["params"]))
             else:
