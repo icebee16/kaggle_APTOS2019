@@ -60,3 +60,5 @@ if __name__ == "__main__":
 
     p = ProcessorFactory.make_process(0)
     p.data_preprocess()
+    p.load_condition()
+    p.training()
