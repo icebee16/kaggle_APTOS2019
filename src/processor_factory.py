@@ -3,7 +3,7 @@ import yaml
 from logging import getLogger
 from pathlib import Path
 
-from classifier_process import classifier_process
+from classifier_process import ClassifierProcess
 from util.command_option import get_version
 
 
@@ -24,12 +24,11 @@ class ProcessorFactory():
             training process instance.
         """
         config = self.__load_config()
-        print(config)
 
         process = None
 
-        if config["task"] == "regression":
-            process = classifier_process(config)
+        if config["task"] == "classifier":
+            process = ClassifierProcess(config)
 
         return process
 
@@ -52,9 +51,12 @@ class ProcessorFactory():
         return config_dict
 
 
-from process import process
 if __name__ == "__main__":
     """
     unit test
     """
-    assert isinstance(ProcessorFactory.make_process(0), process)
+    from process import Process
+    assert isinstance(ProcessorFactory.make_process(0), Process)
+
+    p = ProcessorFactory.make_process(0)
+    p.data_preprocess()
