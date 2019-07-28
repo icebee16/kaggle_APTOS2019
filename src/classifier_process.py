@@ -8,6 +8,9 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 import torch
+import torch.nn as nn
+import torch.optim as optim
+import torch.optim.lr_scheduler as lr_scheduler
 from torch.utils.data import DataLoader
 from torchvision import transforms
 
@@ -131,9 +134,25 @@ class ClassifierProcess(Process):
         return dataset
 
     def load_condition(self):
-        pass
+        # model
+        model_config = self.config["train"]["model"]
+        model_module = import_module("model." + model_config["name"])
+        model = getattr(model_module, "get_" + model_config["name"])(task="classifier", pretrained=model_config["pretrained"])
+        self.model = model.to(self.device)
 
-    def __get
+        # optimizer
+        optimizer_config = self.config["train"]["optimizer"]
+        optimizer_config["params"]["params"] = self.model.parameters()
+        self.optimizer = getattr(optim, optimizer_config["algorithm"])(**optimizer_config["params"])
+
+        # scheduler
+        scheduler_config = self.config["train"]["scheduler"]
+        scheduler_config["params"]["optimizer"] = self.optimizer
+        self.scheduler = getattr(lr_scheduler, scheduler_config["algorithm"])(**scheduler_config["params"])
+
+        # criterion
+        criterion_cofig = self.config["train"]["criterion"]
+        self.criterion = getattr(nn, criterion_cofig["algorithm"])()
 
     def training(self):
         pass
