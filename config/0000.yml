@@ -81,7 +81,7 @@ train:
   model:
     name: resnet50
     pretrained: True
-  optimiser:
+  optimizer:
     algorithm: Adam
     params:
       lr: 0.001
@@ -89,8 +89,8 @@ train:
     algorithm: StepLR
     params:
       step_size: 10
-  loss:
-    algorithm: MSE
+  criterion:
+    algorithm: CrossEntropyLoss
 
 inference:
   null

@@ -1,7 +1,14 @@
 import os
 import random
+from pathlib import Path
+from importlib import import_module
+
 import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
 import torch
+from torch.utils.data import DataLoader
 from torchvision import transforms
 
 from process import Process
@@ -31,11 +38,6 @@ class ClassifierProcess(Process):
     def __set_seed(self):
         """
         Set seed for all module.
-
-        Notes
-        -----
-        reproducibility
-        https://qiita.com/yagays/items/d413787a78aae825dbd3
         """
         seed = self.config["train"]["condition"]["seed"]
 
@@ -50,11 +52,44 @@ class ClassifierProcess(Process):
     def data_preprocess(self):
         """
         Make train and valid dataloader.
+
+        Notes
+        -----
+        Should implement "preprocess" part for dataset.
+
+        dataloader reproducibility
+        https://qiita.com/yagays/items/d413787a78aae825dbd3
         """
-        tranform_config = self.config["dataloader"]["transform"]
-        train_transform = self.__load_transforms(tranform_config["train"])
-        print(train_transform)
-        pass
+        def worker_init_fn(worker_id):
+            np.random.seed(np.random.get_state()[1][0] + worker_id)
+
+        transform_config = self.config["dataloader"]["transform"]
+        train_df = pd.read_csv(Path(__file__).parents[1] / "input" / "train.csv")
+        train_img_df, valid_img_df = train_test_split(train_df,
+                                                      test_size=0.2,
+                                                      stratify=train_df["diagnosis"],
+                                                      random_state=self.config["train"]["condition"]["seed"])
+        train_img_df.reset_index(inplace=True)
+        valid_img_df.reset_index(inplace=True)
+        dataset_name = self.config["dataloader"]["dataset"]
+
+        train_transform = self.__load_transforms(transform_config["train"])
+        train_dataset_params = {"img_df": train_img_df, "transform": train_transform}
+        train_dataset = self.__load_dataset(dataset_name, train_dataset_params)
+        self.train_loader = DataLoader(train_dataset,
+                                       shuffle=True,
+                                       num_workers=4,
+                                       batch_size=self.config["dataloader"]["batch_size"],
+                                       worker_init_fn=worker_init_fn)
+
+        valid_transform = self.__load_transforms(transform_config["valid"])
+        valid_dataset_params = {"img_df": valid_img_df, "transform": valid_transform}
+        valid_dataset = self.__load_dataset(dataset_name, valid_dataset_params)
+        self.valid_loader = DataLoader(valid_dataset,
+                                       shuffle=True,
+                                       num_workers=4,
+                                       batch_size=self.config["dataloader"]["batch_size"],
+                                       worker_init_fn=worker_init_fn)
 
     def __load_transforms(self, transforms_config):
         """
@@ -83,8 +118,22 @@ class ClassifierProcess(Process):
 
         return transforms.Compose(transform)
 
+    def __load_dataset(self, dataset_name, dataset_params):
+        """
+        loading dataset for train and valid dataset.
+        """
+        module_name = "dataloader." + dataset_name.lower() + "_dataset"
+        module = import_module(module_name)
+
+        class_name = dataset_name.capitalize() + "TrainDataset"
+        dataset = getattr(module, class_name)(**dataset_params)
+
+        return dataset
+
     def load_condition(self):
         pass
+
+    def __get
 
     def training(self):
         pass
