@@ -1,4 +1,4 @@
-task: regression
+task: classifier
 
 dataloader:
   preprocess: null
@@ -6,7 +6,7 @@ dataloader:
 
 train:
   model:
-    name: resnet18
+    name: resnet50
     pretrained: True
   optimiser:
     name: Adam
@@ -18,6 +18,8 @@ train:
       step_size: 10
   loss:
     name: MSE
+  params:
+    seed: 1116
 
 inference:
   null
