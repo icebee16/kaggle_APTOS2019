@@ -2,24 +2,93 @@ task: classifier
 
 dataloader:
   preprocess: null
-  transform: null
+  transform:
+    train:
+      - function: Resize
+        params:
+          size: 256
+      - function: RandomHorizontalFlip
+      - function: ToPILImage
+        params:
+          mode: RGB
+      - function: CenterCrop
+        params:
+          size: 224
+      - function: ToTensor
+      - function: Normalize
+        params:
+          mean:
+            - 0.485
+            - 0.456
+            - 0.406
+          std:
+            - 0.229
+            - 0.224
+            - 0.225
+    valid:
+      - function: Resize
+        params:
+          size: 256
+      - function: RandomHorizontalFlip
+      - function: ToPILImage
+        params:
+          mode: RGB
+      - function: CenterCrop
+        params:
+          size: 224
+      - function: ToTensor
+      - function: Normalize
+        params:
+          mean:
+            - 0.485
+            - 0.456
+            - 0.406
+          std:
+            - 0.229
+            - 0.224
+            - 0.225
+    test:
+      - function: Resize
+        params:
+          size: 256
+      - function: RandomHorizontalFlip
+      - function: ToPILImage
+        params:
+          mode: RGB
+      - function: CenterCrop
+        params:
+          size: 224
+      - function: ToTensor
+      - function: Normalize
+        params:
+          mean:
+            - 0.485
+            - 0.456
+            - 0.406
+          std:
+            - 0.229
+            - 0.224
+            - 0.225
 
 train:
+  condition:
+    epoch: 10
+    early_stopping_rounds: 10
+    verbose: 1
+    seed: 1116
   model:
     name: resnet50
     pretrained: True
   optimiser:
-    name: Adam
+    algorithm: Adam
     params:
       lr: 0.001
   scheduler:
-    name: StepLR
+    algorithm: StepLR
     params:
       step_size: 10
   loss:
-    name: MSE
-  params:
-    seed: 1116
+    algorithm: MSE
 
 inference:
   null
