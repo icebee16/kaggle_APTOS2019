@@ -5,7 +5,7 @@ import torch.nn as nn
 from torchvision import models
 
 
-def get_resnet50(task, weight=None, is_train=True):
+def get_resnet50(task, weight=None, pretrained=False):
     """
     Parameters
     ----------
@@ -13,11 +13,12 @@ def get_resnet50(task, weight=None, is_train=True):
         kind of task.
     weight: torch.dict
         pretrained weight in training section.
-    is_train: bool
-        called from train part or test part.
+        so, this parameter use in inference.
+    pretrained: bool
+        load torchvision model weight.
     """
     resnet50 = models.resnet50(pretrained=False)
-    if is_train:
+    if pretrained:
         resnet50.load_state_dict(torch.load(Path(__file__).parents[2] / "model" / "pretrain" / "resnet50.pth"))
 
     if task == "classifier":
@@ -33,16 +34,19 @@ def get_resnet50(task, weight=None, is_train=True):
         print("{} task isn't implemented.".format(task))
         raise NotImplementedError
 
+    if weight is not None:
+        resnet50.load_state_dict(weight)
+
     return resnet50
 
 
 if __name__ == "__main__":
-    net = get_resnet50("classifier", is_train=True)
+    net = get_resnet50("classifier", pretrained=True)
     x = torch.randn(16, 3, 512, 512)
     y = net(x)
     assert torch.Size([16, 5]) == y.size()
 
-    net = get_resnet50("regression", is_train=True)
+    net = get_resnet50("regression", pretrained=True)
     x = torch.randn(16, 3, 512, 512)
     y = net(x)
     assert torch.Size([16, 1]) == y.size()
