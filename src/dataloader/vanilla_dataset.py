@@ -13,7 +13,7 @@ class VanillaTrainDataset(Dataset):
         self.data_path = Path(__file__).parents[2] / "input" / "train_images"
 
     def __len__(self):
-        return len(self.df)
+        return len(self.img_df)
 
     def __getitem__(self, idx):
         img_filepath = self.data_path / "{}.png".format(self.img_df.loc[idx, "id_code"])
@@ -32,7 +32,7 @@ class VanillaTestDataset(Dataset):
         self.data_path = Path(__file__).parents[2] / "input" / "test_images"
 
     def __len__(self):
-        return len(self.df)
+        return len(self.img_df)
 
     def __getitem__(self, idx):
         img_filepath = self.data_path / "{}.png".format(self.img_df.loc[idx, "id_code"])
