@@ -1,6 +1,8 @@
 task: classifier
 
 dataloader:
+  dataset: vanilla
+  batch_size: 16
   preprocess: null
   transform:
     train:
