@@ -6,6 +6,8 @@ from importlib import import_module
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import cohen_kappa_score
+from fastprogress import master_bar, progress_bar
 
 import torch
 import torch.nn as nn
@@ -155,4 +157,72 @@ class ClassifierProcess(Process):
         self.criterion = getattr(nn, criterion_cofig["algorithm"])()
 
     def training(self):
-        pass
+        condition = self.config["train"]["condition"]
+        best_score = {"epoch": -1, "train_loss": np.inf, "valid_loss": np.inf, "train_qwk": 0.0, "valid_qwk": 0.0}
+
+        mb = master_bar(range(condition["epoch"]))
+        for epoch in mb:
+
+            temp_score = {"epoch": epoch, "train_loss": 0.0, "valid_loss": 0.0, "train_qwk": 0.0, "valid_qwk": 0.0}
+            for phase in ["train", "valid"]:
+                if phase == "train":
+                    data_loader = self.train_loader
+                    self.scheduler.step()
+                    self.model.train()
+                elif phase == "valid":
+                    data_loader = self.valid_loader
+                    self.model.eval()
+
+                running_loss = 0.0
+                y_true, y_pred = np.array([]), np.array([]).reshape((0, 5))
+                for data in progress_bar(data_loader, parent=mb):
+                    mb.child.comment = ">> {} phase".format(phase)
+                    inputs = data["image"].to(self.device, dtype=torch.float)
+                    labels = data["label"].to(self.device, dtype=torch.long)
+                    self.optimizer.zero_grad()
+                    outputs = self.model(inputs)
+
+                    with torch.set_grad_enabled(phase == "train"):
+                        loss = self.criterion(outputs, labels)
+                        if phase == "train":
+                            loss.backward()
+                            self.optimizer.step()
+                    running_loss += loss.item() * inputs.size(0)
+
+                    if torch.cuda.is_available():
+                        labels = labels.cpu()
+                        outputs = outputs.cpu()
+                    y_true = np.hstack((y_true, labels.detach().numpy()))
+                    y_pred = np.vstack((y_pred, outputs.detach().numpy()))
+                temp_score["{}_loss".format(phase)] = running_loss / len(data_loader)
+                temp_score["{}_qwk".format(phase)] = self.__qwk_scoring(y_true, y_pred)
+
+            super().update_training_log(temp_score)
+
+            if best_score["valid_loss"] > temp_score["valid_loss"]:
+                best_score = temp_score
+                super().update_best_model(self.model.state_dict())
+
+            if epoch % 10 == 0:
+                text = "[epoch {}] best epoch:{}  train loss:{}  valid loss:{}  train qwk:{}  valid qwk:{}".format(
+                    epoch,
+                    best_score["epoch"],
+                    np.round(best_score["train_loss"], 5),
+                    np.round(best_score["valid_loss"], 5),
+                    np.round(best_score["train_qwk"], 5),
+                    np.round(best_score["valid_qwk"], 5)
+                )
+                mb.write(text)
+                super().update_learning_curve()
+
+        super().update_learning_curve()
+        return best_score
+
+    def __qwk_scoring(self, y_true, y_pred):
+        def flatten(y):
+            return np.argmax(y, axis=1).reshape(-1)
+        score = cohen_kappa_score(y_true.reshape(-1),
+                                  flatten(y_pred),
+                                  labels=[0, 1, 2, 3, 4],
+                                  weights="quadratic")
+        return score
