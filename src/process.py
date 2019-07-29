@@ -83,4 +83,4 @@ class Process(metaclass=ABCMeta):
         ax.plot(self.__log_df["epoch"], self.__log_df["valid_qwk"], label="valid")
         plt.title("qwk")
         plt.legend()
-        plt.savefig(str(save_path / "{}_{}qwk.png".format(self.__version, self.__fold)))
+        plt.savefig(str(save_path / "{}_{}_qwk.png".format(self.__version, self.__fold)))

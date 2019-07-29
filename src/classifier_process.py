@@ -18,6 +18,7 @@ from torchvision import transforms
 
 from process import Process
 from dataloader import custom_transforms
+from util.log_module import stop_watch
 
 
 class ClassifierProcess(Process):
@@ -54,6 +55,7 @@ class ClassifierProcess(Process):
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = False
 
+    @stop_watch("ClassifierProcess.data_preprocess()")
     def data_preprocess(self):
         """
         Make train and valid dataloader.
@@ -135,6 +137,7 @@ class ClassifierProcess(Process):
 
         return dataset
 
+    @stop_watch("ClassifierProcess.load_condition()")
     def load_condition(self):
         # model
         model_config = self.config["train"]["model"]
@@ -156,6 +159,7 @@ class ClassifierProcess(Process):
         criterion_cofig = self.config["train"]["criterion"]
         self.criterion = getattr(nn, criterion_cofig["algorithm"])()
 
+    @stop_watch("ClassifierProcess.training()")
     def training(self):
         condition = self.config["train"]["condition"]
         best_score = {"epoch": -1, "train_loss": np.inf, "valid_loss": np.inf, "train_qwk": 0.0, "valid_qwk": 0.0}

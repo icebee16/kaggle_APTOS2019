@@ -1,6 +1,5 @@
 import yaml
 
-from logging import getLogger
 from pathlib import Path
 
 from classifier_process import ClassifierProcess
@@ -14,7 +13,7 @@ class ProcessorFactory():
     """
 
     @classmethod
-    def make_process(self, fold):
+    def make_process(self):
         """
         Loading config and making process instance.
 
@@ -25,12 +24,15 @@ class ProcessorFactory():
         """
         config = self.__load_config()
 
-        process = None
+        process_list = []
 
-        if config["task"] == "classifier":
-            process = ClassifierProcess(config)
+        if config["summary"]["task"] == "classifier":
+            for i in range(config["summary"]["fold"]):
+                process_list.append(ClassifierProcess(config, i))
+        elif config["summary"]["task"] == "regression":
+            raise NotImplementedError
 
-        return process
+        return process_list
 
     @classmethod
     def __load_config(self):
@@ -55,7 +57,7 @@ if __name__ == "__main__":
     """
     unit test
     """
-    p = ProcessorFactory.make_process(0)
+    p = ProcessorFactory.make_process()[0]
     p.data_preprocess()
     p.load_condition()
     p.training()

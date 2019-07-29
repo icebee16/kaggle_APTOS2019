@@ -11,7 +11,7 @@ from util.command_option import get_version
 def create_main_logger(version, mode="w"):
     logger_name = version + "main"
     log_filepath = Path(__file__).parents[2] / "log" / "main" / "{}.log".format(version)
-    formatter = Formatter("[%(levelname)s]b %(asctime)s >>\t%(message)s")
+    formatter = Formatter("[%(levelname)s] %(asctime)s >>\t%(message)s")
     __create_logger(logger_name, log_filepath, formatter, mode)
 
 
