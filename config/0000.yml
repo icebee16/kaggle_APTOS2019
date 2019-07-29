@@ -1,4 +1,6 @@
-task: classifier
+summary:
+  task: classifier
+  fold: 1
 
 dataloader:
   dataset: vanilla
@@ -65,7 +67,7 @@ dataloader:
 
 train:
   condition:
-    epoch: 10
+    epoch: 150
     early_stopping_rounds: 10
     verbose: 1
     seed: 1116

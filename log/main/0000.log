@@ -1,0 +1,10 @@
+[INFO] 2019-07-30 01:52:36,335 >>	====>> start  main()
+[INFO] 2019-07-30 01:52:36,366 >>	<< 0 fold start  >>
+[INFO] 2019-07-30 01:52:36,367 >>	====>> start  ClassifierProcess.data_preprocess()
+[INFO] 2019-07-30 01:52:36,373 >>	<<==== finish ClassifierProcess.data_preprocess(): [elapsed time] >> 00:00:00
+[INFO] 2019-07-30 01:52:36,373 >>	====>> start  ClassifierProcess.load_condition()
+[INFO] 2019-07-30 01:52:38,497 >>	<<==== finish ClassifierProcess.load_condition(): [elapsed time] >> 00:00:02
+[INFO] 2019-07-30 01:52:38,498 >>	====>> start  ClassifierProcess.training()
+[INFO] 2019-07-30 02:29:22,481 >>	<<==== finish ClassifierProcess.training(): [elapsed time] >> 00:36:43
+[INFO] 2019-07-30 02:29:22,481 >>	<< 0 fold finish >>
+[INFO] 2019-07-30 02:29:22,482 >>	<<==== finish main(): [elapsed time] >> 00:36:46
