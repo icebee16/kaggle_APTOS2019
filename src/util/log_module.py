@@ -5,7 +5,7 @@ from pathlib import Path
 from logging import getLogger, Formatter, FileHandler, StreamHandler, INFO, DEBUG
 from functools import wraps
 
-from command_option import get_version
+from util.command_option import get_version
 
 
 def create_main_logger(version, mode="w"):
@@ -17,18 +17,18 @@ def create_main_logger(version, mode="w"):
 
 def create_train_logger(version, mode="w"):
     logger_name = version + "train"
-    log_filepath = Path(__file__).parents[2] / "log" / "main" / "{}.log".format(version)
-    formatter = Formatter("[%(levelname)s] %(asctime)s >>\t%(message)s")
+    log_filepath = Path(__file__).parents[2] / "log" / "train" / "{}.tsv".format(version)
+    formatter = Formatter("%(message)s")
     __create_logger(logger_name, log_filepath, formatter, mode)
 
 
 def __create_logger(logger_name, log_filepath, formatter, mode):
-    Path.mkdir(log_path.parents[0], exist_ok=True, parents=True)
+    Path.mkdir(log_filepath.parents[0], exist_ok=True, parents=True)
 
     logger = getLogger(logger_name)
     logger.setLevel(DEBUG)
 
-    file_handler = FileHandler(log_filepath)
+    file_handler = FileHandler(log_filepath, mode=mode)
     file_handler.setLevel(DEBUG)
     file_handler.setFormatter(formatter)
 
