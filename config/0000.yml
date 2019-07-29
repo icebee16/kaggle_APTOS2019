@@ -10,9 +10,6 @@ dataloader:
         params:
           size: 256
       - function: RandomHorizontalFlip
-      - function: ToPILImage
-        params:
-          mode: RGB
       - function: CenterCrop
         params:
           size: 224
@@ -32,9 +29,6 @@ dataloader:
         params:
           size: 256
       - function: RandomHorizontalFlip
-      - function: ToPILImage
-        params:
-          mode: RGB
       - function: CenterCrop
         params:
           size: 224
@@ -54,9 +48,6 @@ dataloader:
         params:
           size: 256
       - function: RandomHorizontalFlip
-      - function: ToPILImage
-        params:
-          mode: RGB
       - function: CenterCrop
         params:
           size: 224
@@ -79,7 +70,7 @@ train:
     verbose: 1
     seed: 1116
   model:
-    name: resnet50
+    name: resnet18
     pretrained: True
   optimizer:
     algorithm: Adam
