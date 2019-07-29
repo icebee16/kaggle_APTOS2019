@@ -55,10 +55,8 @@ if __name__ == "__main__":
     """
     unit test
     """
-    from process import Process
-    assert isinstance(ProcessorFactory.make_process(0), Process)
-
     p = ProcessorFactory.make_process(0)
     p.data_preprocess()
     p.load_condition()
     p.training()
+    # assert isinstance(p, Process)
