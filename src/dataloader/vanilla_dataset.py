@@ -20,7 +20,7 @@ class VanillaTrainDataset(Dataset):
         img = Image.open(str(img_filepath.resolve()))
         img = self.transform(img)
 
-        label = self.df.loc[idx, "diagnosis"]
+        label = self.img_df.loc[idx, "diagnosis"]
 
         return {"image": img, "label": label}
 
