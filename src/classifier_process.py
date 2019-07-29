@@ -164,6 +164,7 @@ class ClassifierProcess(Process):
         condition = self.config["train"]["condition"]
         best_score = {"epoch": -1, "train_loss": np.inf, "valid_loss": np.inf, "train_qwk": 0.0, "valid_qwk": 0.0}
 
+        non_improvement_round = 0
         mb = master_bar(range(condition["epoch"]))
         for epoch in mb:
 
@@ -206,6 +207,9 @@ class ClassifierProcess(Process):
             if best_score["valid_loss"] > temp_score["valid_loss"]:
                 best_score = temp_score
                 super().update_best_model(self.model.state_dict())
+                non_improvement_round = 0
+            else:
+                non_improvement_round += 1
 
             if epoch % 10 == 0:
                 text = "[epoch {}] best epoch:{}  train loss:{}  valid loss:{}  train qwk:{}  valid qwk:{}".format(
@@ -218,6 +222,11 @@ class ClassifierProcess(Process):
                 )
                 mb.write(text)
                 super().update_learning_curve()
+
+            # Early Stopping
+            if non_improvement_round >= condition["early_stopping_rounds"]:
+                print("\t Early stopping: {}[epoch]".format(epoch))
+                break
 
         super().update_learning_curve()
         return best_score

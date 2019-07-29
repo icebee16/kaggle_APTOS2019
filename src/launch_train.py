@@ -10,12 +10,12 @@ from util.log_module import stop_watch
 def main(args):
     p_list = ProcessorFactory.make_process()
 
-    for p in p_list:
-        get_main_logger(get_version()).info(f"{p} fold start ======>>")
+    for i, p in enumerate(p_list):
+        get_main_logger(get_version()).info(f"<< {i} fold start  >>")
         p.data_preprocess()
         p.load_condition()
         p.training()
-        get_main_logger(get_version()).info(f">>===== {p} fold finish")
+        get_main_logger(get_version()).info(f"<< {i} fold finish >>")
 
 
 if __name__ == "__main__":
