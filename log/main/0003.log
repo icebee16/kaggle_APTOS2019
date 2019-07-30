@@ -1,0 +1,17 @@
+[INFO] 2019-07-30 10:15:58,792 >>	====>> start  main()
+[INFO] 2019-07-30 10:15:58,827 >>	<< 0 fold start  >>
+[INFO] 2019-07-30 10:15:58,827 >>	====>> start  ClassifierProcess.data_preprocess()
+[INFO] 2019-07-30 10:15:58,833 >>	<<==== finish ClassifierProcess.data_preprocess(): [elapsed time] >> 00:00:00
+[INFO] 2019-07-30 10:15:58,833 >>	====>> start  ClassifierProcess.load_condition()
+[INFO] 2019-07-30 10:16:01,152 >>	<<==== finish ClassifierProcess.load_condition(): [elapsed time] >> 00:00:02
+[INFO] 2019-07-30 10:16:01,152 >>	====>> start  ClassifierProcess.training()
+[INFO] 2019-07-30 10:53:17,629 >>	<<==== finish ClassifierProcess.training(): [elapsed time] >> 00:37:16
+[INFO] 2019-07-30 10:53:17,630 >>	
+	== [0003] 0 fold best ==
+	epoch		: 20
+	train_loss	: 16.869739554498505
+	valid_loss	: 17.187362911908522
+	train_qwk	: 0.8159697226080218
+	valid_qwk	: 0.817484004092178
+[INFO] 2019-07-30 10:53:17,630 >>	<< 0 fold finish >>
+[INFO] 2019-07-30 10:53:17,631 >>	<<==== finish main(): [elapsed time] >> 00:37:18
