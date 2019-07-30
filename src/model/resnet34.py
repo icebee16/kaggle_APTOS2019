@@ -17,27 +17,27 @@ def get_resnet34(task, weight=None, pretrained=False):
     pretrained: bool
         load torchvision model weight.
     """
-    resnet34 = models.resnet34(pretrained=False)
+    model = models.resnet34(pretrained=False)
     if pretrained:
-        resnet34.load_state_dict(torch.load(Path(__file__).parents[2] / "model" / "pretrain" / "resnet34.pth"))
+        model.load_state_dict(torch.load(Path(__file__).parents[2] / "model" / "pretrain" / "resnet34.pth"))
 
+    num_features = model.fc.in_features
     if task == "classifier":
-        resnet34.fc = nn.Sequential(
-            nn.Linear(in_features=512, out_features=5),
-            nn.Sigmoid()
+        model.fc = nn.Sequential(
+            nn.Linear(in_features=num_features, out_features=5),
         )
     elif task == "regression":
-        resnet34.fc = nn.Sequential(
-            nn.Linear(in_features=512, out_features=1)
+        model.fc = nn.Sequential(
+            nn.Linear(in_features=num_features, out_features=1)
         )
     else:
         print("{} task isn't implemented.".format(task))
         raise NotImplementedError
 
     if weight is not None:
-        resnet34.load_state_dict(weight)
+        model.load_state_dict(weight)
 
-    return resnet34
+    return model
 
 
 if __name__ == "__main__":

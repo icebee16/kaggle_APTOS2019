@@ -5,7 +5,7 @@ import torch.nn as nn
 from torchvision import models
 
 
-def get_resnet18(task, weight=None, pretrained=False):
+def get_densenet121(task, weight=None, pretrained=False):
     """
     Parameters
     ----------
@@ -17,17 +17,17 @@ def get_resnet18(task, weight=None, pretrained=False):
     pretrained: bool
         load torchvision model weight.
     """
-    model = models.resnet18(pretrained=False)
+    model = models.densenet121(pretrained=False)
     if pretrained:
-        model.load_state_dict(torch.load(Path(__file__).parents[2] / "model" / "pretrain" / "resnet18.pth"))
+        model.load_state_dict(torch.load(Path(__file__).parents[2] / "model" / "pretrain" / "densenet121.pth"))
 
-    num_features = model.fc.in_features
+    num_features = model.classifier.in_features
     if task == "classifier":
-        model.fc = nn.Sequential(
+        model.classifier = nn.Sequential(
             nn.Linear(in_features=num_features, out_features=5),
         )
     elif task == "regression":
-        model.fc = nn.Sequential(
+        num_features.classifier = nn.Sequential(
             nn.Linear(in_features=num_features, out_features=1)
         )
     else:
@@ -41,12 +41,12 @@ def get_resnet18(task, weight=None, pretrained=False):
 
 
 if __name__ == "__main__":
-    net = get_resnet18("classifier", pretrained=True)
+    net = get_densenet121("classifier", pretrained=True)
     x = torch.randn(16, 3, 512, 512)
     y = net(x)
     assert torch.Size([16, 5]) == y.size()
 
-    net = get_resnet18("regression", pretrained=True)
+    net = get_densenet121("regression", pretrained=True)
     x = torch.randn(16, 3, 512, 512)
     y = net(x)
     assert torch.Size([16, 1]) == y.size()

@@ -17,27 +17,27 @@ def get_resnet50(task, weight=None, pretrained=False):
     pretrained: bool
         load torchvision model weight.
     """
-    resnet50 = models.resnet50(pretrained=False)
+    model = models.resnet50(pretrained=False)
     if pretrained:
-        resnet50.load_state_dict(torch.load(Path(__file__).parents[2] / "model" / "pretrain" / "resnet50.pth"))
+        model.load_state_dict(torch.load(Path(__file__).parents[2] / "model" / "pretrain" / "resnet50.pth"))
 
+    num_features = model.fc.in_features
     if task == "classifier":
-        resnet50.fc = nn.Sequential(
-            nn.Linear(in_features=2048, out_features=5),
-            nn.Sigmoid()
+        model.fc = nn.Sequential(
+            nn.Linear(in_features=num_features, out_features=5),
         )
     elif task == "regression":
-        resnet50.fc = nn.Sequential(
-            nn.Linear(in_features=2048, out_features=1)
+        model.fc = nn.Sequential(
+            nn.Linear(in_features=num_features, out_features=1)
         )
     else:
         print("{} task isn't implemented.".format(task))
         raise NotImplementedError
 
     if weight is not None:
-        resnet50.load_state_dict(weight)
+        model.load_state_dict(weight)
 
-    return resnet50
+    return model
 
 
 if __name__ == "__main__":
