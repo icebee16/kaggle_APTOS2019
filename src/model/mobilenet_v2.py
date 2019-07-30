@@ -21,7 +21,7 @@ def get_mobilenet_v2(task, weight=None, pretrained=False):
     if pretrained:
         model.load_state_dict(torch.load(Path(__file__).parents[2] / "model" / "pretrain" / "mobilenet_v2.pth"))
 
-    num_features = model.classifier.in_features
+    num_features = model.classifier[1].in_features
     if task == "classifier":
         model.classifier = nn.Sequential(
             nn.Dropout(p=0.2),
