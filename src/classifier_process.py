@@ -192,7 +192,7 @@ class ClassifierProcess(Process):
                         if phase == "train":
                             loss.backward()
                             self.optimizer.step()
-                    running_loss += loss.item() * inputs.size(0)
+                    running_loss += loss.item()
 
                     if torch.cuda.is_available():
                         labels = labels.cpu()
