@@ -45,9 +45,14 @@ class ProcessorFactory():
             information of process condition.
         """
         version = get_version()
-        yaml_filepath = Path(__file__).parents[1] / "config" / f"{version}.yml"
+        config_dir = Path(__file__).parents[1] / "config"
+        config_file_list = list(config_dir.glob(f"{version}*.yml"))
 
-        with open(yaml_filepath, "r") as f:
+        if len(config_file_list) > 1:
+            print(f"Duplicate Config File Error. >> version : {version}")
+            raise AssertionError
+
+        with open(config_file_list[0], "r") as f:
             config_dict = yaml.safe_load(f)
 
         return config_dict
