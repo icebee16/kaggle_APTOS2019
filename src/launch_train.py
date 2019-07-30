@@ -14,8 +14,22 @@ def main(args):
         get_main_logger(get_version()).info(f"<< {i} fold start  >>")
         p.data_preprocess()
         p.load_condition()
-        p.training()
+        best_score = p.training()
+        get_main_logger(get_version()).info(__fold_log(best_score, get_version(), i))
         get_main_logger(get_version()).info(f"<< {i} fold finish >>")
+
+
+def __fold_log(result, version, fold):
+    text = "\n\t== [{}] {} fold best ==\n\tepoch\t\t: {}\n\ttrain_loss\t: {}\n\tvalid_loss\t: {}\n\ttrain_qwk\t: {}\n\tvalid_qwk\t: {}".format(
+        str(version),
+        fold,
+        result["epoch"],
+        result["train_loss"],
+        result["valid_loss"],
+        result["train_qwk"],
+        result["valid_qwk"]
+    )
+    return text
 
 
 if __name__ == "__main__":
