@@ -1,0 +1,90 @@
+summary:
+  task: classifier
+  fold: 1
+
+dataloader:
+  dataset: vanilla
+  batch_size: 16
+  preprocess: null
+  transform:
+    train:
+      - function: Resize
+        params:
+          size: 256
+      - function: RandomHorizontalFlip
+      - function: CenterCrop
+        params:
+          size: 224
+      - function: ToTensor
+      - function: Normalize
+        params:
+          mean:
+            - 0.485
+            - 0.456
+            - 0.406
+          std:
+            - 0.229
+            - 0.224
+            - 0.225
+    valid:
+      - function: Resize
+        params:
+          size: 256
+      - function: RandomHorizontalFlip
+      - function: CenterCrop
+        params:
+          size: 224
+      - function: ToTensor
+      - function: Normalize
+        params:
+          mean:
+            - 0.485
+            - 0.456
+            - 0.406
+          std:
+            - 0.229
+            - 0.224
+            - 0.225
+    test:
+      - function: Resize
+        params:
+          size: 256
+      - function: RandomHorizontalFlip
+      - function: CenterCrop
+        params:
+          size: 224
+      - function: ToTensor
+      - function: Normalize
+        params:
+          mean:
+            - 0.485
+            - 0.456
+            - 0.406
+          std:
+            - 0.229
+            - 0.224
+            - 0.225
+
+train:
+  condition:
+    epoch: 150
+    early_stopping_rounds: 10
+    verbose: 1
+    seed: 1116
+  model:
+    name: resnet50
+    pretrained: True
+  optimizer:
+    algorithm: Adam
+    params:
+      lr: 0.0005
+  scheduler:
+    algorithm: StepLR
+    params:
+      step_size: 10
+      gamma: 0.5
+  criterion:
+    algorithm: CrossEntropyLoss
+
+inference:
+  null
