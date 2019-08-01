@@ -4,7 +4,7 @@ summary:
 
 dataloader:
   dataset: vanilla
-  batch_size: 16
+  batch_size: 8
   preprocess: null
   transform:
     train:
@@ -81,7 +81,7 @@ train:
     verbose: 1
     seed: 1116
   model:
-    name: mobilenet_v2
+    name: efficientnet_b5
     pretrained: True
   optimizer:
     algorithm: Adam

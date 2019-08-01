@@ -3,7 +3,7 @@ summary:
   fold: 1
 
 dataloader:
-  dataset: vanilla
+  dataset: circle
   batch_size: 16
   preprocess: null
   transform:
@@ -13,9 +13,6 @@ dataloader:
           degrees: 180
       - function: RandomHorizontalFlip
       - function: Resize
-        params:
-          size: 256
-      - function: CenterCrop
         params:
           size: 244
       - function: ToTensor
@@ -36,9 +33,6 @@ dataloader:
       - function: RandomHorizontalFlip
       - function: Resize
         params:
-          size: 256
-      - function: CenterCrop
-        params:
           size: 244
       - function: ToTensor
       - function: Normalize
@@ -57,9 +51,6 @@ dataloader:
           degrees: 180
       - function: RandomHorizontalFlip
       - function: Resize
-        params:
-          size: 256
-      - function: CenterCrop
         params:
           size: 244
       - function: ToTensor
@@ -81,7 +72,7 @@ train:
     verbose: 1
     seed: 1116
   model:
-    name: mobilenet_v2
+    name: resnet101
     pretrained: True
   optimizer:
     algorithm: Adam

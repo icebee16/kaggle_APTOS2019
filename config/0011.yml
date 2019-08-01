@@ -81,7 +81,7 @@ train:
     verbose: 1
     seed: 1116
   model:
-    name: mobilenet_v2
+    name: densenet121
     pretrained: True
   optimizer:
     algorithm: Adam
