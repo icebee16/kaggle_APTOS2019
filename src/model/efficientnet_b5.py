@@ -21,7 +21,7 @@ def get_efficientnet_b5(task, weight=None, pretrained=False):
     if pretrained:
         model.load_state_dict(torch.load(Path(__file__).parents[2] / "model" / "pretrain" / "efficientnet-b5.pth"))
 
-    num_features = model.classifier.in_features
+    num_features = model._fc.in_features
     if task == "classifier":
         model._fc = nn.Sequential(
             nn.Linear(in_features=num_features, out_features=5),
