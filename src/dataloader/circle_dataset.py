@@ -7,6 +7,8 @@ from PIL import Image
 from torchvision import transforms
 from torch.utils.data import Dataset
 
+from util.kaggle_util import is_kagglekernel
+
 
 class CircleTrainDataset(Dataset):
     def __init__(self, img_df, transform=transforms.ToTensor()):
@@ -49,7 +51,8 @@ class CircleTestDataset(Dataset):
     def __init__(self, img_df, transform=transforms.ToTensor()):
         self.img_df = img_df
         self.transform = transform
-        self.data_path = Path(__file__).parents[2] / "input" / "test_images"
+        img_dir = "input/aptos2019-blindness-detection" if is_kagglekernel() else "input"
+        self.data_path = Path(__file__).parents[2] / img_dir / "test_images"
         self.cache_path = Path(__file__).parents[2] / "data" / "circle"
 
         if not self.cache_path.exists():
@@ -61,8 +64,11 @@ class CircleTestDataset(Dataset):
     def __getitem__(self, idx):
         cache_filepath = self.cache_path / "{}.png".format(self.img_df.loc[idx, "id_code"])
 
+        """
         if not cache_filepath.exists():
             self.__save_cache(idx)
+        """
+        self.__save_cache(idx)
 
         img = Image.open(str(cache_filepath))
         img = self.transform(img)
