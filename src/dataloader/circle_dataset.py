@@ -14,8 +14,13 @@ class CircleTrainDataset(Dataset):
     def __init__(self, img_df, transform=transforms.ToTensor()):
         self.img_df = img_df
         self.transform = transform
-        self.data_path = Path(__file__).parents[2] / "input" / "train_images"
-        self.cache_path = Path(__file__).parents[2] / "data" / "circle"
+
+        if is_kagglekernel():
+            self.data_path = Path(__file__).parents[4] / "aptos2019-blindness-detection" / "train_images"
+            self.cache_path = Path(__file__).parents[5] / "data" / "circle"
+        else:
+            self.data_path = Path(__file__).parents[2] / "input" / "train_images"
+            self.cache_path = Path(__file__).parents[2] / "data" / "circle"
 
         if not self.cache_path.exists():
             self.cache_path.mkdir(parents=True)
@@ -51,9 +56,13 @@ class CircleTestDataset(Dataset):
     def __init__(self, img_df, transform=transforms.ToTensor()):
         self.img_df = img_df
         self.transform = transform
-        img_dir = "input/aptos2019-blindness-detection" if is_kagglekernel() else "input"
-        self.data_path = Path(__file__).parents[2] / img_dir / "test_images"
-        self.cache_path = Path(__file__).parents[2] / "data" / "circle"
+
+        if is_kagglekernel():
+            self.data_path = Path(__file__).parents[4] / "aptos2019-blindness-detection" / "test_images"
+            self.cache_path = Path(__file__).parents[5] / "data" / "circle"
+        else:
+            self.data_path = Path(__file__).parents[2] / "input" / "test_images"
+            self.cache_path = Path(__file__).parents[2] / "data" / "circle"
 
         if not self.cache_path.exists():
             self.cache_path.mkdir(parents=True)

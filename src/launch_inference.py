@@ -28,8 +28,13 @@ class executer(object):
         self.predict = None
 
     def __input_path(self):
-        img_dir = "input/aptos2019-blindness-detection" if is_kagglekernel() else "input"
-        return Path(__file__).absolute().parents[1] / img_dir
+
+        if is_kagglekernel():
+            img_dir = Path(__file__).absolute().parents[3] / "aptos2019-blindness-detection"
+        else:
+            img_dir = Path(__file__).absolute().parents[1] / "input"
+
+        return img_dir
 
     def __load_config(self):
         """
@@ -41,7 +46,7 @@ class executer(object):
             information of process condition.
         """
         version = get_version()
-        config_dir = Path(__file__).parents[1] / "config"  # TODO
+        config_dir = Path(__file__).parents[1] / "config"
         config_file_list = list(config_dir.glob(f"{version}*.yml"))
 
         if len(config_file_list) > 1:
@@ -123,7 +128,10 @@ class executer(object):
 
     def load_model(self):
         task_name = self.config["summary"]["task"]
-        model_dir = Path(__file__).absolute().parents[1] / ("input/model" if is_kagglekernel() else "model")
+        if is_kagglekernel():
+            model_dir = Path(__file__).absolute().parents[3] / "model{}_aptos2019".format(get_version())
+        else:
+            model_dir = Path(__file__).absolute().parents[1] / "model"
         w_path = model_dir / "{}_{}.pth".format(get_version(), self.fold)
         model_config = self.config["train"]["model"]
         model_module = import_module("model." + model_config["name"])
@@ -142,9 +150,11 @@ class executer(object):
                 outputs = outputs.cpu()
             self.predict[i * batch_size:(i + 1) * batch_size] = np.argmax(outputs.detach().numpy(), axis=1)
 
-        submit_path = str(Path(__file__).absolute().parents[1] / "data" / "submit" / "{}.csv".format(get_version()))
         if is_kagglekernel():
-            submit_path = "submission.csv"
+            submit_path = str(Path(__file__).absolute().parents[4] / "working" / "submission.csv")
+            print(submit_path)
+        else:
+            submit_path = str(Path(__file__).absolute().parents[1] / "data" / "submit" / "{}.csv".format(get_version()))
 
         submission_df = pd.read_csv(self.__input_path() / "sample_submission.csv")
         submission_df["diagnosis"] = self.predict.astype(int)
