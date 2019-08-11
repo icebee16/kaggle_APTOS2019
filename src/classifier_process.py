@@ -120,8 +120,7 @@ class ClassifierProcess(Process):
             elif hasattr(transforms, tf["function"]):
                 transform.append(getattr(transforms, tf["function"])(**tf["params"]))
             else:
-                print("Not Difine: {}".format(tf["function"]))
-                raise AttributeError
+                raise NotImplementedError("Not Define: {}".format(tf["function"]))
 
         return transforms.Compose(transform)
 
