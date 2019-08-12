@@ -38,11 +38,11 @@ class RandomEraser(object):
         rand = np.random.rand()
         if rand < self.prob:
             arr = np.array(img)
-            mask_value = np.random.randing(0, 256)
+            mask_value = np.random.randint(0, 256)
 
             h, w, _ = arr.shape
 
-            mask_area = np.random.randint(h * w * self.size_range[0], h * w * self.s[1])
+            mask_area = np.random.randint(h * w * self.size_range[0], h * w * self.size_range[1])
 
             mask_aspect_ratio = np.random.rand() * (self.ratio_range[1] - self.ratio_range[0]) + self.ratio_range[0]
 
@@ -59,5 +59,5 @@ class RandomEraser(object):
             right = left + mask_width
 
             arr[top:bottom, left:right].fill(mask_value)
-            img = Image.fromarry(arr)
+            img = Image.fromarray(arr)
         return img
