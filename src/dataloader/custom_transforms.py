@@ -38,7 +38,7 @@ class RandomEraser(object):
         rand = np.random.rand()
         if rand < self.prob:
             arr = np.array(img)
-            mask_value = np.random.randing(0, 256)
+            mask_value = np.random.randint(0, 256)
 
             h, w, _ = arr.shape
 
