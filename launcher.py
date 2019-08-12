@@ -55,12 +55,15 @@ def update_code(version):
 def inference(version):
     """
     """
+    with open((Path(__file__).parent / "kernel" / "launch" / "launch.py"), mode="r+") as f:
+        f.write(f"VERSION = \"{version}\"")
     subprocess.run(["kaggle", "kernels", "push", "-p", "kernel/launch"])
 
 
 def main():
     training(VERSION)
     update_code(VERSION)
+    print("plz wait 3m")
     time.sleep(180)
     inference(VERSION)
     print("done!!!")

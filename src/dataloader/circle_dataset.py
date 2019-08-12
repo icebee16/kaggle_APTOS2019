@@ -7,6 +7,7 @@ from PIL import Image
 from torchvision import transforms
 from torch.utils.data import Dataset
 
+
 from util.kaggle_util import is_kagglekernel
 
 
@@ -17,7 +18,7 @@ class CircleTrainDataset(Dataset):
 
         if is_kagglekernel():
             self.data_path = Path(__file__).parents[4] / "aptos2019-blindness-detection" / "train_images"
-            self.cache_path = Path(__file__).parents[5] / "data" / "circle"
+            self.cache_path = Path(__file__).parents[5] / "working" / "data" / "circle"
         else:
             self.data_path = Path(__file__).parents[2] / "input" / "train_images"
             self.cache_path = Path(__file__).parents[2] / "data" / "circle"
@@ -73,10 +74,10 @@ class CircleTestDataset(Dataset):
     def __getitem__(self, idx):
         cache_filepath = self.cache_path / "{}.png".format(self.img_df.loc[idx, "id_code"])
 
-        """
-        if not cache_filepath.exists():
-            self.__save_cache(idx)
-        """
+#        """
+#        if not cache_filepath.exists():
+#            self.__save_cache(idx)
+#        """
         self.__save_cache(idx)
 
         img = Image.open(str(cache_filepath))
@@ -133,6 +134,12 @@ class EdgeCrop(object):
             return int(X), int(Y)
 
         edge_list = np.where(edge_img[:, :, 2] == 255)
+        if len(edge_list[0]) == 0:
+            (h, w, c) = edge_img.shape
+            (X, Y) = (int(w / 2), int(h / 2))
+            radius = int(h / 2)
+            return (X, Y), radius
+
         edge_list = [(edge_list[1][i], edge_list[0][i]) for i in range(len(edge_list[0]))]
         X_cand, Y_cand = [], []
         for _ in range(loop):
@@ -187,3 +194,22 @@ class EdgeCrop(object):
         center, radius = self._calc_center_circle(edge, loop=self.loop)
         img = self._center_crop(img, center=center, radius=radius)
         return img
+
+
+if __name__ == "__main__":
+    file_list = ["01c31b10ab99.png", "0229c0a80d42.png"]
+    img_dir = Path(__file__).absolute().parents[2] / "input" / "test_images"
+
+    def __crop(img):
+        cropper = EdgeCrop()
+        img = cropper(img)
+        print(img.shape)
+
+    for f in file_list:
+        print("true")
+        img = cv2.imread(str(img_dir / f))
+        __crop(img)
+
+        print("zero p")
+        z_img = np.zeros_like(img)
+        __crop(z_img)
