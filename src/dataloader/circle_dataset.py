@@ -74,11 +74,8 @@ class CircleTestDataset(Dataset):
     def __getitem__(self, idx):
         cache_filepath = self.cache_path / "{}.png".format(self.img_df.loc[idx, "id_code"])
 
-#        """
-#        if not cache_filepath.exists():
-#            self.__save_cache(idx)
-#        """
-        self.__save_cache(idx)
+        if not cache_filepath.exists():
+            self.__save_cache(idx)
 
         img = Image.open(str(cache_filepath))
         img = self.transform(img)
