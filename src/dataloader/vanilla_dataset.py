@@ -6,11 +6,18 @@ from torchvision import transforms
 from torch.utils.data import Dataset
 
 
+from util.kaggle_util import is_kagglekernel
+
+
 class VanillaTrainDataset(Dataset):
     def __init__(self, img_df, transform=transforms.ToTensor()):
         self.img_df = img_df
         self.transform = transform
-        self.data_path = Path(__file__).parents[2] / "input" / "train_images"
+
+        if is_kagglekernel():
+            self.data_path = Path(__file__).parents[4] / "aptos2019-blindness-detection" / "train_images"
+        else:
+            self.data_path = Path(__file__).parents[2] / "input" / "train_images"
 
     def __len__(self):
         return len(self.img_df)
@@ -29,7 +36,11 @@ class VanillaTestDataset(Dataset):
     def __init__(self, img_df, transform=transforms.ToTensor()):
         self.img_df = img_df
         self.transform = transform
-        self.data_path = Path(__file__).parents[2] / "input" / "test_images"
+
+        if is_kagglekernel():
+            self.data_path = Path(__file__).parents[4] / "aptos2019-blindness-detection" / "test_images"
+        else:
+            self.data_path = Path(__file__).parents[2] / "input" / "test_images"
 
     def __len__(self):
         return len(self.img_df)
