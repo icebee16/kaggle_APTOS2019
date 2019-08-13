@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 
-VERSION = "0028"
+VERSION = "0029"
 
 
 def training(version):
@@ -28,14 +28,14 @@ def training(version):
     subprocess.run(["kaggle", "datasets", "init", "-p", f"kernel/{version}"])
 
     with open(f"kernel/{version}/dataset-metadata.json") as j:
-        dc = json.load(j)
+        metadata = json.load(j)
 
-    dc["title"] = f"model{version}"
-    _id_root = dc["id"].split("/")[0]
-    dc["id"] = f"{_id_root}/model{version}_aptos2019"
+    metadata["title"] = f"model{version}"
+    _id_root = metadata["id"].split("/")[0]
+    metadata["id"] = f"{_id_root}/model{version}_aptos2019"
 
     with open(f"kernel/{version}/dataset-metadata.json", mode="w") as j:
-        json.dump(dc, j, indent=2)
+        json.dump(metadata, j, indent=2)
 
     # upload model
     subprocess.run(["kaggle", "datasets", "create", "-p", f"kernel/{version}"])
@@ -55,13 +55,24 @@ def update_code(version):
 def inference(version):
     """
     """
+    # set metadata
+    with open("kernel/launch/kernel-metadata.json") as j:
+        metadata = json.load(j)
+
+    model_source = metadata["dataset_sources"][0]
+    metadata["dataset_sources"][0] = model_source.split("/")[0] + f"/model{version}_aptos2019"
+
+    with open("kernel/launch/kernel-metadata.json", mode="w") as j:
+        json.dump(metadata, j, indent=2)
+
+    # upload model
     with open((Path(__file__).parent / "kernel" / "launch" / "launch.py"), mode="r+") as f:
         f.write(f"VERSION = \"{version}\"")
     subprocess.run(["kaggle", "kernels", "push", "-p", "kernel/launch"])
 
 
 def main():
-    training(VERSION)
+    # training(VERSION)
     update_code(VERSION)
     print("plz wait 3m")
     time.sleep(180)
