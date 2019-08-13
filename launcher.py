@@ -6,13 +6,13 @@ import json
 from pathlib import Path
 
 
-VERSION = "0016"
+VERSION = "0028"
 
 
 def training(version):
     """
     """
-    # subprocess.run(["python", "src/launch_train.py", version])
+    subprocess.run(["python", "src/launch_train.py", version])
 
     # mkdir for dataset
     (Path(__file__).parent / "kernel" / version).mkdir(parents=True, exist_ok=True)

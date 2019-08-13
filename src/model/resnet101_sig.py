@@ -17,7 +17,7 @@ def get_resnet101_sig(task, weight=None, pretrained=False):
     pretrained: bool
         load torchvision model weight.
     """
-    model = models.resnet101_sig(pretrained=False)
+    model = models.resnet101(pretrained=False)
     if pretrained:
         model.load_state_dict(torch.load(Path(__file__).parents[2] / "model" / "pretrain" / "resnet101.pth"))
 
