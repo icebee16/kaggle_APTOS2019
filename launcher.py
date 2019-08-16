@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 
 
-VERSION = "0029"
+VERSION = "0028"
 
 
 def training(version):
@@ -73,9 +73,9 @@ def inference(version):
 
 def main():
     # training(VERSION)
-    update_code(VERSION)
-    print("plz wait 3m")
-    time.sleep(180)
+    # update_code(VERSION)
+    # print("plz wait 3m")
+    # time.sleep(180)
     inference(VERSION)
     print("done!!!")
 
