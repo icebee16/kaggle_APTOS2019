@@ -3,19 +3,8 @@ summary:
   fold: 1
 
 dataloader:
-<<<<<<< HEAD
   dataset: bencolor
   batch_size: 16
-  preprocess: null
-  transform:
-    train:
-      - function: Resize
-        params:
-          size: 224
-      - function: RandomHorizontalFlip
-=======
-  dataset: circle
-  batch_size: 8
   preprocess: null
   transform:
     train:
@@ -25,8 +14,7 @@ dataloader:
       - function: RandomHorizontalFlip
       - function: Resize
         params:
-          size: 244
->>>>>>> 6c993e68b307635df3beb200c2a01210c2b58490
+          size: 224
       - function: ToTensor
       - function: Normalize
         params:
@@ -39,20 +27,13 @@ dataloader:
             - 0.224
             - 0.225
     valid:
-<<<<<<< HEAD
-      - function: Resize
-        params:
-          size: 224
-      - function: RandomHorizontalFlip
-=======
       - function: RandomRotation
         params:
           degrees: 180
       - function: RandomHorizontalFlip
       - function: Resize
         params:
-          size: 244
->>>>>>> 6c993e68b307635df3beb200c2a01210c2b58490
+          size: 224
       - function: ToTensor
       - function: Normalize
         params:
@@ -65,20 +46,13 @@ dataloader:
             - 0.224
             - 0.225
     test:
-<<<<<<< HEAD
-      - function: Resize
-        params:
-          size: 224
-      - function: RandomHorizontalFlip
-=======
       - function: RandomRotation
         params:
           degrees: 180
       - function: RandomHorizontalFlip
       - function: Resize
         params:
-          size: 244
->>>>>>> 6c993e68b307635df3beb200c2a01210c2b58490
+          size: 224
       - function: ToTensor
       - function: Normalize
         params:
@@ -93,20 +67,12 @@ dataloader:
 
 train:
   condition:
-<<<<<<< HEAD
-    epoch: 100
-=======
     epoch: 150
->>>>>>> 6c993e68b307635df3beb200c2a01210c2b58490
     early_stopping_rounds: 10
     verbose: 1
     seed: 1116
   model:
-<<<<<<< HEAD
     name: resnet101
-=======
-    name: efficientnet_b5
->>>>>>> 6c993e68b307635df3beb200c2a01210c2b58490
     pretrained: True
   optimizer:
     algorithm: Adam
@@ -115,12 +81,8 @@ train:
   scheduler:
     algorithm: StepLR
     params:
-<<<<<<< HEAD
-      step_size: 10
-=======
       step_size: 5
       gamma: 0.9
->>>>>>> 6c993e68b307635df3beb200c2a01210c2b58490
   criterion:
     algorithm: CrossEntropyLoss
 
