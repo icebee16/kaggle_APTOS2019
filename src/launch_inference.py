@@ -82,7 +82,7 @@ class executer(object):
         test_dataset = self.__load_dataset(dataset_name, test_dataset_params)
         self.predict = np.zeros((len(test_dataset)))  # only test process
         self.test_loader = DataLoader(test_dataset,
-                                      shuffle=True,
+                                      shuffle=False,
                                       num_workers=4,
                                       batch_size=self.config["dataloader"]["batch_size"],
                                       worker_init_fn=worker_init_fn)
