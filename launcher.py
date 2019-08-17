@@ -5,17 +5,13 @@ import json
 from pathlib import Path
 
 
-<<<<<<< HEAD
-VERSION = "0028"
-=======
-VERSION_LIST = ["0029"]
->>>>>>> 12cae32eabaecd30b67e23e8f0b72530e77e7e07
+VERSION_LIST = ["0037"]
 
 
 def training(version):
     """
     """
-#    subprocess.run(["python", "src/launch_train.py", version])
+    subprocess.run(["python", "src/launch_train.py", version])
 
     dataset_dir = Path(__file__).parent / "kernel" / "input" / f"model{version}_aptos2019"
 
@@ -109,18 +105,9 @@ def inference(version):
 
 
 def main():
-<<<<<<< HEAD
-    # training(VERSION)
-    # update_code(VERSION)
-    # print("plz wait 3m")
-    # time.sleep(180)
-    inference(VERSION)
-    print("done!!!")
-=======
     for v in VERSION_LIST:
         training(v)
         inference(v)
->>>>>>> 12cae32eabaecd30b67e23e8f0b72530e77e7e07
 
 
 if __name__ == "__main__":
