@@ -19,10 +19,10 @@ class CentralTrainDataset(Dataset):
 
         if is_kagglekernel():
             self.data_path = Path(__file__).parents[4] / "aptos2019-blindness-detection" / "train_images"
-            self.cache_path = Path(__file__).parents[5] / "working" / "data" / "bencolor"
+            self.cache_path = Path(__file__).parents[5] / "working" / "data" / "central"
         else:
             self.data_path = Path(__file__).parents[2] / "input" / "train_images"
-            self.cache_path = Path(__file__).parents[2] / "data" / "bencolor"
+            self.cache_path = Path(__file__).parents[2] / "data" / "central"
 
         if not self.cache_path.exists():
             self.cache_path.mkdir(parents=True)
@@ -61,10 +61,10 @@ class CentralTestDataset(Dataset):
 
         if is_kagglekernel():
             self.data_path = Path(__file__).parents[4] / "aptos2019-blindness-detection" / "test_images"
-            self.cache_path = Path(__file__).parents[5] / "working" / "data" / "bencolor"
+            self.cache_path = Path(__file__).parents[5] / "working" / "data" / "central"
         else:
             self.data_path = Path(__file__).parents[2] / "input" / "test_images"
-            self.cache_path = Path(__file__).parents[2] / "data" / "bencolor"
+            self.cache_path = Path(__file__).parents[2] / "data" / "central"
 
         if not self.cache_path.exists():
             self.cache_path.mkdir(parents=True)
@@ -95,11 +95,13 @@ class CentralTestDataset(Dataset):
 
 
 class CentralCrop(object):
-    def __init__(self, tol=7):
+    def __init__(self, tol=7, img_size=512):
         self.tol = tol
+        self.img_size = img_size
 
     def __call__(self, img):
         img = self._circle_crop_v2(img)
+        img = cv2.resize(img, (self.img_size, self.img_size))
         return img
 
     def _crop_image_from_gray(self, img):
