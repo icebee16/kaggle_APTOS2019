@@ -1,0 +1,90 @@
+summary:
+  task: classifier
+  fold: 1
+
+dataloader:
+  dataset: central
+  batch_size: 16
+  preprocess: null
+  transform:
+    train:
+      - function: RandomRotation
+        params:
+          degrees: 180
+      - function: RandomHorizontalFlip
+      - function: Resize
+        params:
+          size: 244
+      - function: ToTensor
+      - function: Normalize
+        params:
+          mean:
+            - 0.485
+            - 0.456
+            - 0.406
+          std:
+            - 0.229
+            - 0.224
+            - 0.225
+    valid:
+      - function: RandomRotation
+        params:
+          degrees: 180
+      - function: RandomHorizontalFlip
+      - function: Resize
+        params:
+          size: 244
+      - function: ToTensor
+      - function: Normalize
+        params:
+          mean:
+            - 0.485
+            - 0.456
+            - 0.406
+          std:
+            - 0.229
+            - 0.224
+            - 0.225
+    test:
+      - function: RandomRotation
+        params:
+          degrees: 180
+      - function: RandomHorizontalFlip
+      - function: Resize
+        params:
+          size: 244
+      - function: ToTensor
+      - function: Normalize
+        params:
+          mean:
+            - 0.485
+            - 0.456
+            - 0.406
+          std:
+            - 0.229
+            - 0.224
+            - 0.225
+
+train:
+  condition:
+    epoch: 150
+    early_stopping_rounds: 10
+    verbose: 1
+    seed: 1116
+  model:
+    name: mobilenet_v2
+    pretrained: True
+  optimizer:
+    algorithm: Adam
+    params:
+      lr: 0.001
+  scheduler:
+    algorithm: StepLR
+    params:
+      step_size: 5
+      gamma: 0.9
+  criterion:
+    algorithm: CrossEntropyLoss
+
+inference:
+  null
