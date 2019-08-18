@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 
-VERSION_LIST = ["0037", "0038", "0039", "0040"]
+VERSION_LIST = ["0036", "0039"]
 
 
 def training(version):
