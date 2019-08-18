@@ -5,7 +5,11 @@ import json
 from pathlib import Path
 
 
+<<<<<<< HEAD
 VERSION_LIST = ["0045", "0046"]
+=======
+VERSION_LIST = ["0021", "0042", "0043"]
+>>>>>>> 6cc1f7095172a5ec31e94b83c7e2cffab42b03db
 
 
 def training(version):
@@ -23,6 +27,9 @@ def training(version):
             t.add(str(coef_path))
 
     for f_path in list((Path(__file__).parent / "model").glob(f"{version}*.pth")):
+        shutil.copy(str(f_path), str(dataset_dir / f_path.name))
+
+    for f_path in list((Path(__file__).parent / "config").glob(f"{version}*.yml")):
         shutil.copy(str(f_path), str(dataset_dir / f_path.name))
 
     # set metadata
