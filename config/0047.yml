@@ -4,7 +4,7 @@ summary:
 
 dataloader:
   dataset: bencolor
-  batch_size: 32
+  batch_size: 16
   preprocess: null
   transform:
     train:
