@@ -16,6 +16,7 @@ input/*
 # kernel
 kernel-metadata.json
 dataset-metadata.json
+*.pth
 
 # log
 
