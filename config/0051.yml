@@ -12,12 +12,12 @@ dataloader:
         params:
           degrees: 180
       - function: RandomHorizontalFlip
-      - function: Resize
-        params:
-          size: 256
       - function: RandomEraser
         params:
           prob: 0.5
+      - function: Resize
+        params:
+          size: 256
       - function: ToTensor
       - function: Normalize
         params:
