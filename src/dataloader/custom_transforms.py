@@ -31,20 +31,16 @@ class RandomEraser(object):
     """
     def __init__(self, prob, size_range=(0.02, 0.4), ratio_range=(0.3, 3)):
         self.prob = prob
-        self.size_range = size_range  # TODO error case
-        self.ratio_range = ratio_range
+        self.s_range = size_range  # TODO error case
+        self.r_range = ratio_range
 
     def __call__(self, img):
         rand = np.random.rand()
-        if rand < self.prob:
+        if rand > self.prob:
             arr = np.array(img)
-            mask_value = np.random.randint(0, 256)
-
             h, w, _ = arr.shape
-
-            mask_area = np.random.randint(h * w * self.size_range[0], h * w * self.size_range[1])
-
-            mask_aspect_ratio = np.random.rand() * (self.ratio_range[1] - self.ratio_range[0]) + self.ratio_range[0]
+            mask_area = np.random.randint(h * w * self.s_range[0], h * w * self.s_range[1])
+            mask_aspect_ratio = np.random.rand() * (self.r_range[1] - self.r_range[0]) + self.r_range[0]
 
             mask_height = int(np.sqrt(mask_area / mask_aspect_ratio))
             if mask_height > h - 1:
@@ -57,7 +53,6 @@ class RandomEraser(object):
             left = np.random.randint(0, w - mask_width)
             bottom = top + mask_height
             right = left + mask_width
-
-            arr[top:bottom, left:right].fill(mask_value)
+            arr[top:bottom, left:right] = np.random.randint(low=0, high=256, size=(mask_height, mask_width, 3))
             img = Image.fromarray(arr)
         return img
