@@ -53,6 +53,6 @@ class RandomEraser(object):
             left = np.random.randint(0, w - mask_width)
             bottom = top + mask_height
             right = left + mask_width
-            arr[top:bottom, left:right] = np.random.randint(low=0, high=256, size=(mask_height, mask_width, 3))
+            arr[top:bottom, left:right] = np.random.randint(low=0, high=255, size=(mask_height, mask_width, 3))
             img = Image.fromarray(arr)
         return img

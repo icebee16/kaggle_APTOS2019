@@ -2,13 +2,13 @@ from pathlib import Path
 
 import numpy as np
 import cv2
-from PIL import Image
+from PIL import Image, ImageFile
 
 from torchvision import transforms
 from torch.utils.data import Dataset
 
-
 from util.kaggle_util import is_kagglekernel
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
 class CircleTrainDataset(Dataset):

@@ -2,14 +2,15 @@ from pathlib import Path
 
 import numpy as np
 
-from PIL import Image
+from PIL import Image, ImageFile
 import cv2
 
 from torchvision import transforms
 from torch.utils.data import Dataset
 
-
 from util.kaggle_util import is_kagglekernel
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
 class CentralTrainDataset(Dataset):
