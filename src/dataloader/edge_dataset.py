@@ -10,7 +10,6 @@ from PIL import Image, ImageFile
 from torchvision import transforms
 from torch.utils.data import Dataset
 
-from util.kaggle_util import is_kagglekernel
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
@@ -19,12 +18,8 @@ class EdgeTrainDataset(Dataset):
         self.img_df = img_df
         self.transform = transform
 
-        if is_kagglekernel():
-            self.data_path = Path(__file__).parents[4] / "aptos2019-blindness-detection" / "train_images"
-            self.cache_path = Path(__file__).parents[5] / "working" / "data" / "edge"
-        else:
-            self.data_path = Path(__file__).parents[2] / "input" / "train_images"
-            self.cache_path = Path(__file__).parents[2] / "data" / "edge"
+        self.data_path = Path(__file__).parents[2] / "input" / "train_images"
+        self.cache_path = Path(__file__).parents[2] / "data" / "edge"
 
         if not self.cache_path.exists():
             self.cache_path.mkdir(parents=True)
@@ -61,12 +56,8 @@ class EdgeTestDataset(Dataset):
         self.img_df = img_df
         self.transform = transform
 
-        if is_kagglekernel():
-            self.data_path = Path(__file__).parents[4] / "aptos2019-blindness-detection" / "test_images"
-            self.cache_path = Path(__file__).parents[5] / "data" / "edge"
-        else:
-            self.data_path = Path(__file__).parents[2] / "input" / "test_images"
-            self.cache_path = Path(__file__).parents[2] / "data" / "edge"
+        self.data_path = Path(__file__).parents[2] / "input" / "test_images"
+        self.cache_path = Path(__file__).parents[2] / "data" / "edge"
 
         if not self.cache_path.exists():
             self.cache_path.mkdir(parents=True)
