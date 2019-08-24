@@ -88,3 +88,8 @@ class Process(metaclass=ABCMeta):
         plt.ylim(0.0, 1.0)
         plt.legend()
         plt.savefig(str(save_path / "{}_{}_qwk.png".format(self.__version, self.__fold)))
+
+    def update_best_qwk_coef(self, coef):
+        coef_path = Path(__file__).parents[1] / "model" / "qwkcoef" / "{}_{}.txt".format(self.__version, self.__fold)
+        with open(coef_path, mode="w") as f:
+            f.writelines("\n".join([str(i) for i in coef]))

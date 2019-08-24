@@ -3,6 +3,7 @@ import yaml
 from pathlib import Path
 
 from classifier_process import ClassifierProcess
+from regression_process import RegressionProcess
 from util.command_option import get_version
 
 
@@ -30,7 +31,8 @@ class ProcessorFactory():
             for i in range(config["summary"]["fold"]):
                 process_list.append(ClassifierProcess(config, i))
         elif config["summary"]["task"] == "regression":
-            raise NotImplementedError
+            for i in range(config["summary"]["fold"]):
+                process_list.append(RegressionProcess(config, i))
 
         return process_list
 
