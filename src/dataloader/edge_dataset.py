@@ -93,7 +93,7 @@ class EdgeCrop(object):
 
     def _edge_detection(self, img):
         dst = cv2.medianBlur(img, ksize=5)
-        sub = cv2.addWeighted(dst, 4, cv2.GaussianBlur(dst, (7, 7) , 50), -1, 80)
+        sub = cv2.addWeighted(dst, 4, cv2.GaussianBlur(dst, (7, 7), 0), -1, 80)
         _b, _g, sub = cv2.split(sub)
         _b, _g, dst = cv2.split(dst)
         dst = cv2.addWeighted(dst, 0.5, sub, 0.5, 0)
