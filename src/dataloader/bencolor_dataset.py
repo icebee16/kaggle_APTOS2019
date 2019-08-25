@@ -109,6 +109,7 @@ class BenColorCrop(object):
         img = self._crop_image_from_gray(img)
         img = cv2.resize(img, (self.img_size, self.img_size))
         img = cv2.addWeighted(img, 4, cv2.GaussianBlur(img, (0, 0), self.sigmaX), -4, 128)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         return img
 
     def _crop_image_from_gray(self, img):
