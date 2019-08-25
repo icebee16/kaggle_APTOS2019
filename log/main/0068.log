@@ -1,0 +1,17 @@
+[INFO] 2019-08-25 05:56:06,026 >>	====>> start  main()
+[INFO] 2019-08-25 05:56:06,083 >>	<< 0 fold start  >>
+[INFO] 2019-08-25 05:56:06,084 >>	====>> start  data_preprocess()
+[INFO] 2019-08-25 05:56:06,096 >>	<<==== finish data_preprocess(): [elapsed time] >> 00:00:00
+[INFO] 2019-08-25 05:56:06,096 >>	====>> start  load_condition()
+[INFO] 2019-08-25 05:56:09,015 >>	<<==== finish load_condition(): [elapsed time] >> 00:00:02
+[INFO] 2019-08-25 05:56:09,016 >>	====>> start  training()
+[INFO] 2019-08-25 06:14:12,575 >>	<<==== finish training(): [elapsed time] >> 00:18:03
+[INFO] 2019-08-25 06:14:12,576 >>	
+	== [0068] 0 fold best ==
+	epoch		: 17
+	train_loss	: 0.2702566831899078
+	valid_loss	: 0.22323575065187787
+	train_qwk	: 0.9057485600027518
+	valid_qwk	: 0.919758308732275
+[INFO] 2019-08-25 06:14:12,577 >>	<< 0 fold finish >>
+[INFO] 2019-08-25 06:14:12,580 >>	<<==== finish main(): [elapsed time] >> 00:18:06
