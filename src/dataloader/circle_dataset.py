@@ -46,7 +46,7 @@ class CircleTrainDataset(Dataset):
         img_filepath = self.data_path / "{}.png".format(self.img_df.loc[idx, "id_code"])
         img = cv2.imread(str(img_filepath.resolve()))
 
-        cropper = EdgeCrop()
+        cropper = CircleCrop()
         img = cropper(img)
 
         cache_filepath = self.cache_path / "{}.png".format(self.img_df.loc[idx, "id_code"])
@@ -86,14 +86,14 @@ class CircleTestDataset(Dataset):
         img_filepath = self.data_path / "{}.png".format(self.img_df.loc[idx, "id_code"])
         img = cv2.imread(str(img_filepath.resolve()))
 
-        cropper = EdgeCrop()
+        cropper = CircleCrop()
         img = cropper(img)
 
         cache_filepath = self.cache_path / "{}.png".format(self.img_df.loc[idx, "id_code"])
         cv2.imwrite(str(cache_filepath), img)
 
 
-class EdgeCrop(object):
+class CircleCrop(object):
     def __init__(self, center_search_loop=5000):
         self.loop = center_search_loop
 
