@@ -27,7 +27,7 @@ def get_densenet121(task, weight=None, pretrained=False):
             nn.Linear(in_features=num_features, out_features=5),
         )
     elif task == "regression":
-        num_features.classifier = nn.Sequential(
+        model.classifier = nn.Sequential(
             nn.Linear(in_features=num_features, out_features=1)
         )
     else:
