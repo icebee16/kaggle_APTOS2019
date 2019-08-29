@@ -36,7 +36,7 @@ class RandomEraser(object):
 
     def __call__(self, img):
         rand = np.random.rand()
-        if rand > self.prob:
+        if rand < self.prob:
             arr = np.array(img)
             h, w, _ = arr.shape
             mask_area = np.random.randint(h * w * self.s_range[0], h * w * self.s_range[1])
@@ -56,3 +56,21 @@ class RandomEraser(object):
             arr[top:bottom, left:right] = np.random.randint(low=0, high=255, size=(mask_height, mask_width, 3))
             img = Image.fromarray(arr)
         return img
+
+
+class RandomSkewness(object):
+    """
+    """
+    def __init__(self, prob, ratio=1.0):
+        self.prob = prob
+        self.ratio = ratio
+
+    def __call__(self, img):
+        rand = np.random.rand()
+        if rand < self.prob:
+            arr = np.array(img)
+            h, w, _ = arr.shape
+            c = (int(h / 2), int(w / 2))
+
+            src_pts = np.array([[c[0], c[1]], [c[0] + 100, c[1] + 100], [c[0] + 100, c[1] - 100]], dtype=np.float32)
+            dst_pts = np.array([[c[0], c[1]], [c[0] + 100, c[1] + 100], [c[0] + 100, c[1] - 100]], dtype=np.float32)

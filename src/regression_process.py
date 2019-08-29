@@ -18,6 +18,7 @@ from torchvision import transforms
 
 from process import Process
 from dataloader import custom_transforms
+from estimator import custom_loss
 from estimator.optimized_qwk import OptimizedQWK
 from util.log_module import stop_watch
 
@@ -158,7 +159,15 @@ class RegressionProcess(Process):
 
         # criterion
         criterion_cofig = self.config["train"]["criterion"]
-        self.criterion = getattr(nn, criterion_cofig["algorithm"])()
+        if "params" not in criterion_cofig.keys():
+            criterion_cofig["params"] = {}
+
+        if hasattr(custom_loss, criterion_cofig["algorithm"]):
+            self.criterion = getattr(custom_loss, criterion_cofig["algorithm"])(**criterion_cofig["params"])
+        elif hasattr(nn, criterion_cofig["algorithm"]):
+            self.criterion = getattr(nn, criterion_cofig["algorithm"])(**criterion_cofig["config"])
+        else:
+            raise NotImplementedError("Not Define: {}".format(criterion_cofig))
 
         # estimator
         self.estimator = OptimizedQWK()
