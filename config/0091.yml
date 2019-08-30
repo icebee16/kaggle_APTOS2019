@@ -12,9 +12,15 @@ dataloader:
         params:
           degrees: 180
       - function: RandomHorizontalFlip
+      - function: WhiteNoise
+        params:
+          prob: 0.5
+          scale: 51
       - function: Resize
         params:
-          size: 256
+          size:
+            - 256
+            - 256
       - function: ToTensor
       - function: Normalize
         params:

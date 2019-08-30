@@ -12,9 +12,15 @@ dataloader:
         params:
           degrees: 180
       - function: RandomHorizontalFlip
+      - function: WhiteNoise
+        params:
+          prob: 0.5
+          scale: 51
       - function: Resize
         params:
-          size: 256
+          size:
+            - 256
+            - 256
       - function: ToTensor
       - function: Normalize
         params:
@@ -67,7 +73,7 @@ dataloader:
 
 train:
   condition:
-    epoch: 150
+    epoch: 200
     early_stopping_rounds: 10
     verbose: 1
     seed: 1116
@@ -80,10 +86,10 @@ train:
       lr: 0.001
       weight_decay: 0.00001
   scheduler:
-    algorithm: StepLR
+    algorithm: CosineAnnealingLR
     params:
-      step_size: 5
-      gamma: 0.1
+      T_max: 20
+      eta_min: 0.00001
   criterion:
     algorithm: WeightedMSELoss
     params:
