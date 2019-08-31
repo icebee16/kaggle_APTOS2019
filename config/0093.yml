@@ -89,7 +89,7 @@ train:
     algorithm: CosineAnnealingLR
     params:
       T_max: 20
-      eta_min: 0.00001
+      eta_min: 0.0001
   criterion:
     algorithm: WeightedMSELoss
     params:
