@@ -95,7 +95,6 @@ class RegressionProcess(Process):
         if "eval_batch_size" not in self.config["dataloader"].keys():
             self.config["dataloader"]["eval_batch_size"] = self.config["dataloader"]["batch_size"]
 
-        print(self.config["dataloader"]["eval_batch_size"])
         valid_transform = self.__load_transforms(transform_config["valid"])
         valid_dataset_params = {"img_df": valid_img_df, "transform": valid_transform}
         valid_dataset = self.__load_dataset(dataset_name, valid_dataset_params)
