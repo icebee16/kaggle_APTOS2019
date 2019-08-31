@@ -73,7 +73,7 @@ train:
     verbose: 1
     seed: 1116
   model:
-    name: efficientnet_b5
+    name: efficientnet_b4
     pretrained: True
   optimizer:
     algorithm: Adam
