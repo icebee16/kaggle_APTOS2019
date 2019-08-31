@@ -168,7 +168,7 @@ class RegressionProcess(Process):
         if hasattr(custom_loss, criterion_cofig["algorithm"]):
             self.criterion = getattr(custom_loss, criterion_cofig["algorithm"])(**criterion_cofig["params"])
         elif hasattr(nn, criterion_cofig["algorithm"]):
-            self.criterion = getattr(nn, criterion_cofig["algorithm"])(**criterion_cofig["config"])
+            self.criterion = getattr(nn, criterion_cofig["algorithm"])(**criterion_cofig["params"])
         else:
             raise NotImplementedError("Not Define: {}".format(criterion_cofig))
 
