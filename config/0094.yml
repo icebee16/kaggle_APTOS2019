@@ -3,7 +3,11 @@ summary:
   fold: 1
 
 dataloader:
+<<<<<<< HEAD
   dataset: benedge
+=======
+  dataset: edge
+>>>>>>> e417a7e240093911fb0dc83ead2ce66c3326d671
   batch_size: 16
   preprocess: null
   transform:
@@ -12,9 +16,21 @@ dataloader:
         params:
           degrees: 180
       - function: RandomHorizontalFlip
+<<<<<<< HEAD
       - function: Resize
         params:
           size: 256
+=======
+      - function: WhiteNoise
+        params:
+          prob: 0.5
+          scale: 51
+      - function: Resize
+        params:
+          size:
+            - 256
+            - 256
+>>>>>>> e417a7e240093911fb0dc83ead2ce66c3326d671
       - function: ToTensor
       - function: Normalize
         params:
@@ -85,7 +101,18 @@ train:
       step_size: 5
       gamma: 0.1
   criterion:
+<<<<<<< HEAD
     algorithm: MSELoss
+=======
+    algorithm: WeightedMSELoss
+    params:
+      weight:
+        - 0.1320
+        - 0.2149
+        - 0.1595
+        - 0.2616
+        - 0.2320
+>>>>>>> e417a7e240093911fb0dc83ead2ce66c3326d671
 
 inference:
   null

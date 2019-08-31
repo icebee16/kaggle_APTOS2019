@@ -3,7 +3,7 @@ summary:
   fold: 1
 
 dataloader:
-  dataset: edge
+  dataset: bencolor
   batch_size: 16
   preprocess: null
   transform:

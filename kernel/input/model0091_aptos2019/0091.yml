@@ -3,7 +3,7 @@ summary:
   fold: 1
 
 dataloader:
-  dataset: edge
+  dataset: benedge
   batch_size: 16
   preprocess: null
   transform:
