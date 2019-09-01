@@ -72,7 +72,7 @@ dataloader:
 train:
   condition:
     epoch: 150
-    early_stopping_rounds: 30
+    early_stopping_rounds: 10
     verbose: 1
     seed: 1116
   model:
