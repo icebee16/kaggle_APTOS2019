@@ -1,6 +1,8 @@
 import torch
 from torch.nn import Module
 
+from sklearn.metrics import cohen_kappa_score
+
 
 class WeightedMSELoss(Module):
     def __init__(self, weight):
@@ -14,6 +16,18 @@ class WeightedMSELoss(Module):
             weight_list[target[:] == i] = self.weight[i]
 
         return torch.sum(weight_list * (preds - target) ** 2) / target.size()[0]
+
+
+class InverseQWKLoss(Module):
+    def __init__(self):
+        super(InverseQWKLoss, self).__init__()
+        self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+    def forward(self, preds, target):
+        qwk_score = cohen_kappa_score(torch.round(preds).cpu().detach().numpy(),
+                                      target.cpu().detach().numpy(),
+                                      weights="quadratic")
+        return torch.tensor(-qwk_score, device=self.device)
 
 
 if __name__ == "__main__":

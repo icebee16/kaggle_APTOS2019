@@ -14,9 +14,10 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
 class EdgeTrainDataset(Dataset):
-    def __init__(self, img_df, transform=transforms.ToTensor()):
+    def __init__(self, img_df, transform=transforms.ToTensor(), binary=False):
         self.img_df = img_df
         self.transform = transform
+        self.binary = binary
 
         self.data_path = Path(__file__).parents[2] / "input" / "train_images"
         self.cache_path = Path(__file__).parents[2] / "data" / "edge"
@@ -37,6 +38,8 @@ class EdgeTrainDataset(Dataset):
         img = self.transform(img)
 
         label = self.img_df.loc[idx, "diagnosis"]
+        if self.binary:
+            label = 1 if label > 0 else 0
 
         return {"image": img, "label": label}
 

@@ -13,9 +13,10 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
 class BencolorTrainDataset(Dataset):
-    def __init__(self, img_df, transform=transforms.ToTensor()):
+    def __init__(self, img_df, transform=transforms.ToTensor(), binary=False):
         self.img_df = img_df
         self.transform = transform
+        self.binary = binary
 
         if is_kagglekernel():
             self.data_path = Path(__file__).parents[4] / "aptos2019-blindness-detection" / "train_images"
@@ -40,6 +41,8 @@ class BencolorTrainDataset(Dataset):
         img = self.transform(img)
 
         label = self.img_df.loc[idx, "diagnosis"]
+        if self.binary:
+            label = 1 if label > 0 else 0
 
         return {"image": img, "label": label}
 

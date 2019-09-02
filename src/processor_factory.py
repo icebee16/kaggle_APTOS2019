@@ -4,6 +4,7 @@ from pathlib import Path
 
 from classifier_process import ClassifierProcess
 from regression_process import RegressionProcess
+from binary_process import BinaryProcess
 from util.command_option import get_version
 
 
@@ -33,6 +34,9 @@ class ProcessorFactory():
         elif config["summary"]["task"] == "regression":
             for i in range(config["summary"]["fold"]):
                 process_list.append(RegressionProcess(config, i))
+        elif config["summary"]["task"] == "binary":
+            for i in range(config["summary"]["fold"]):
+                process_list.append(BinaryProcess(config, i))
 
         return process_list
 
