@@ -1,11 +1,11 @@
 summary:
   task: binary
   fold: 1
-  csv: sampled_train
+  csv: train_all_2015_and_2019
 
 dataloader:
-  dataset: edge
-  batch_size: 32
+  dataset: benedge
+  batch_size: 16
   preprocess: null
   transform:
     train:
