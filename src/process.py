@@ -4,6 +4,7 @@ from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
 
+from sklearn import model_selection
 import torch
 
 from util.command_option import get_version
@@ -49,6 +50,17 @@ class Process(metaclass=ABCMeta):
         Training and calculation validation score.
         """
         raise NotImplementedError
+
+    def get_kfold(self, df, method="StratifiedKFold", params={"n_splits": 5, "shuffle": True}):
+        kfold = getattr(model_selection, method)(**params)
+        idx = []
+        for t, _ in kfold.split(df["id_code"], df["diagnosis"]):
+            idx.append(t)
+        train_idx = idx[int(self.__fold) % len(idx)]
+        train_df = df.query("index in @train_idx")
+        valid_df = df.query("index not in @train_idx")
+
+        return train_df, valid_df
 
     def update_best_model(self, model_weight):
         torch.save(model_weight, Path(__file__).parents[1] / "model" / "{}_{}.pth".format(self.__version, self.__fold))

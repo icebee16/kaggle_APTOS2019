@@ -78,10 +78,11 @@ class RegressionProcess(Process):
 
         transform_config = self.config["dataloader"]["transform"]
         train_df = pd.read_csv(Path(__file__).parents[1] / "input" / "{}.csv".format(self.config["summary"]["csv"]))
-        train_img_df, valid_img_df = train_test_split(train_df,
-                                                      test_size=0.2,
-                                                      stratify=train_df["diagnosis"],
-                                                      random_state=self.config["train"]["condition"]["seed"])
+        # train_img_df, valid_img_df = train_test_split(train_df,
+        #                                               test_size=0.2,
+        #                                               stratify=train_df["diagnosis"],
+        #                                               random_state=self.config["train"]["condition"]["seed"])  # TODO
+        train_img_df, valid_img_df = super().get_kfold(train_df)
         train_img_df.reset_index(inplace=True)
         valid_img_df.reset_index(inplace=True)
         dataset_name = self.config["dataloader"]["dataset"]
