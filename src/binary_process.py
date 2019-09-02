@@ -70,8 +70,11 @@ class BinaryProcess(Process):
         def worker_init_fn(worker_id):
             np.random.seed(np.random.get_state()[1][0] + worker_id)
 
+        if "csv" not in self.config["summary"].keys():
+            self.config["summary"]["csv"] = "train"
+
         transform_config = self.config["dataloader"]["transform"]
-        train_df = pd.read_csv(Path(__file__).parents[1] / "input" / "train.csv")
+        train_df = pd.read_csv(Path(__file__).parents[1] / "input" / "{}.csv".format(self.config["summary"]["csv"]))
         train_img_df, valid_img_df = train_test_split(train_df,
                                                       test_size=0.2,
                                                       stratify=train_df["diagnosis"],
