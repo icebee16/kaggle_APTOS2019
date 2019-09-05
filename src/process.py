@@ -111,7 +111,7 @@ class Process(metaclass=ABCMeta):
 
         fig = plt.figure(figsize=(10, 8))
         fig.add_subplot(111)
-        sns.heatmap(cm, annot=True, fmt="d")
+        sns.heatmap(cm, annot=True, fmt="d", square=True)
         plt.title("{} epoch heatmap : {} sample".format(epoch, sum(cm)))
         plt.savefig(str(save_path / "{}_{}_cm.png".format(self.__version, self.__fold)))
 
