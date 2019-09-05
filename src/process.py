@@ -3,8 +3,10 @@ from pathlib import Path
 
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 from sklearn import model_selection
+from sklearn.metrics import confusion_matrix
 import torch
 
 from util.command_option import get_version
@@ -100,6 +102,18 @@ class Process(metaclass=ABCMeta):
         plt.ylim(0.0, 1.0)
         plt.legend()
         plt.savefig(str(save_path / "{}_{}_qwk.png".format(self.__version, self.__fold)))
+
+    def update_confusion_matrix(self, target, pred, epoch):
+        save_path = Path(__file__).parents[1] / "log" / "figure"
+        Path.mkdir(save_path, exist_ok=True, parents=True)
+
+        cm = confusion_matrix(target, pred)
+
+        fig = plt.figure(figsize=(8, 10))
+        fig.add_subplot(111)
+        sns.heatmap(cm, annot=True, fmt="d")
+        plt.title("{} epoch heatmap : {} sample".format(epoch, sum(cm)))
+        plt.savefig(str(save_path / "{}_{}_cm.png".format(self.__version, self.__fold)))
 
     def update_best_qwk_coef(self, coef):
         coef_path = Path(__file__).parents[1] / "model" / "qwkcoef" / "{}_{}.txt".format(self.__version, self.__fold)

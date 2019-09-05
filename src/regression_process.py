@@ -233,6 +233,7 @@ class RegressionProcess(Process):
                 best_score = temp_score
                 super().update_best_model(self.model.state_dict())
                 super().update_best_qwk_coef(self.estimator.get_coef())
+                super().update_confusion_matrix(list(y_true.reshape(-1)), list(y_pred.reshape(-1)), epoch)
                 non_improvement_round = 0
             else:
                 non_improvement_round += 1
