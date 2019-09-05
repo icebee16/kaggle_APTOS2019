@@ -5,7 +5,7 @@ summary:
 
 dataloader:
   dataset: benedge
-  batch_size: 16
+  batch_size: 12
   eval_batch_size: 4
   preprocess: null
   transform:

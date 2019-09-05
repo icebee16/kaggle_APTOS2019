@@ -16,7 +16,7 @@ dataloader:
       - function: RandomHorizontalFlip
       - function: Resize
         params:
-          size: 320
+          size: 256
       - function: ToTensor
       - function: Normalize
         params:
@@ -35,7 +35,7 @@ dataloader:
       - function: RandomHorizontalFlip
       - function: Resize
         params:
-          size: 320
+          size: 256
       - function: ToTensor
       - function: Normalize
         params:
@@ -54,7 +54,7 @@ dataloader:
       - function: RandomHorizontalFlip
       - function: Resize
         params:
-          size: 320
+          size: 256
       - function: ToTensor
       - function: Normalize
         params:
