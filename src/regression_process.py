@@ -153,7 +153,7 @@ class RegressionProcess(Process):
         model_module = import_module("model." + model_config["name"])
         if "pretrain" in self.config["summary"].keys():
             w_config = self.config["summary"]["pretrain"]
-            preweight = torch.load(Path(__file__).absolute().parents[1] / "model" / "{}_{}.pth".format(w_config["weight"], w_config["fold"]))
+            preweight = torch.load(Path(__file__).absolute().parents[1] / "model" / "{}_{}.pth".format(w_config["version"], w_config["fold"]))
             model = getattr(model_module, "get_" + model_config["name"])(task="regression", weight=preweight)
         else:
             model = getattr(model_module, "get_" + model_config["name"])(task="regression", pretrained=model_config["pretrained"])
