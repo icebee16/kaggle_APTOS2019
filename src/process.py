@@ -109,9 +109,9 @@ class Process(metaclass=ABCMeta):
 
         cm = confusion_matrix(target, pred)
 
-        fig = plt.figure(figsize=(10, 8))
+        fig = plt.figure(figsize=(10, 10))
         fig.add_subplot(111)
-        sns.heatmap(cm, annot=True, fmt="d")
+        sns.heatmap(cm, annot=True, fmt="d", square=True)
         plt.title("{} epoch heatmap : {} sample".format(epoch, sum(sum(cm))))
         plt.savefig(str(save_path / "{}_{}_cm.png".format(self.__version, self.__fold)))
 
