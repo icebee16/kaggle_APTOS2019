@@ -3,7 +3,7 @@ summary:
   fold: 1
   csv: removed_train_2019
   pretrain:
-    version: 1398
+    version: 0138
     fold: 0
 
 dataloader:
