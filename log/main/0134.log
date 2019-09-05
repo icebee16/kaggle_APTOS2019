@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [INFO] 2019-09-05 07:35:53,085 >>	====>> start  main()
 [INFO] 2019-09-05 07:35:53,655 >>	<< 0 fold start  >>
 [INFO] 2019-09-05 07:35:53,655 >>	====>> start  data_preprocess()
@@ -15,3 +16,22 @@
 	valid_qwk	: 0.9001004109627337
 [INFO] 2019-09-05 09:09:39,860 >>	<< 0 fold finish >>
 [INFO] 2019-09-05 09:09:39,862 >>	<<==== finish main(): [elapsed time] >> 01:33:46
+=======
+[INFO] 2019-09-05 16:03:29,287 >>	====>> start  main()
+[INFO] 2019-09-05 16:03:29,325 >>	<< 0 fold start  >>
+[INFO] 2019-09-05 16:03:29,326 >>	====>> start  data_preprocess()
+[INFO] 2019-09-05 16:03:29,336 >>	<<==== finish data_preprocess(): [elapsed time] >> 00:00:00
+[INFO] 2019-09-05 16:03:29,336 >>	====>> start  load_condition()
+[INFO] 2019-09-05 16:03:31,495 >>	<<==== finish load_condition(): [elapsed time] >> 00:00:02
+[INFO] 2019-09-05 16:03:31,495 >>	====>> start  training()
+[INFO] 2019-09-05 17:04:59,876 >>	<<==== finish training(): [elapsed time] >> 01:01:28
+[INFO] 2019-09-05 17:04:59,876 >>	
+	== [0134] 0 fold best ==
+	epoch		: 29
+	train_loss	: 0.2761961288912141
+	valid_loss	: 0.30351472645998
+	train_qwk	: 0.9100861303214074
+	valid_qwk	: 0.9012804840146696
+[INFO] 2019-09-05 17:04:59,877 >>	<< 0 fold finish >>
+[INFO] 2019-09-05 17:04:59,877 >>	<<==== finish main(): [elapsed time] >> 01:01:30
+>>>>>>> 39d485cd8109b9930c9406f7f115ea7952eba537
