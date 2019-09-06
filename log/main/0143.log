@@ -1,0 +1,7 @@
+[INFO] 2019-09-05 16:18:15,463 >>	====>> start  main()
+[INFO] 2019-09-05 16:18:15,522 >>	<< 0 fold start  >>
+[INFO] 2019-09-05 16:18:15,523 >>	====>> start  data_preprocess()
+[INFO] 2019-09-05 16:18:15,552 >>	<<==== finish data_preprocess(): [elapsed time] >> 00:00:00
+[INFO] 2019-09-05 16:18:15,552 >>	====>> start  load_condition()
+[INFO] 2019-09-05 16:18:20,881 >>	<<==== finish load_condition(): [elapsed time] >> 00:00:05
+[INFO] 2019-09-05 16:18:20,882 >>	====>> start  training()
