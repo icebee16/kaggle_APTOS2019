@@ -82,7 +82,11 @@ class RegressionProcess(Process):
         #                                               test_size=0.2,
         #                                               stratify=train_df["diagnosis"],
         #                                               random_state=self.config["train"]["condition"]["seed"])  # TODO
-        train_img_df, valid_img_df = super().get_kfold(train_df)
+        if "valid" in self.config["summary"].keys():
+            train_img_df = train_df[~train_df["is_{}".format(self.config["summary"]["valid"])]]
+            valid_img_df = train_df[train_df["is_{}".format(self.config["summary"]["valid"])]]
+        else:
+            train_img_df, valid_img_df = super().get_kfold(train_df)
         train_img_df.reset_index(inplace=True)
         valid_img_df.reset_index(inplace=True)
         dataset_name = self.config["dataloader"]["dataset"]
