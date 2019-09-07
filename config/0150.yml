@@ -73,7 +73,7 @@ train:
     epoch: 150
     early_stopping_rounds: 10
     verbose: 1
-    seed: 1116
+    seed: 1234
   model:
     name: efficientnet_b4
     pretrained: True

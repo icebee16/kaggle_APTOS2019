@@ -1,6 +1,6 @@
 summary:
   task: regression
-  fold: 1
+  fold: 5
   csv: expand3_train
 
 dataloader:
