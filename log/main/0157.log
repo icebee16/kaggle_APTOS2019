@@ -1,0 +1,77 @@
+[INFO] 2019-09-07 08:32:18,926 >>	====>> start  main()
+[INFO] 2019-09-07 08:32:19,003 >>	<< 0 fold start  >>
+[INFO] 2019-09-07 08:32:19,003 >>	====>> start  data_preprocess()
+[INFO] 2019-09-07 08:32:19,020 >>	<<==== finish data_preprocess(): [elapsed time] >> 00:00:00
+[INFO] 2019-09-07 08:32:19,020 >>	====>> start  load_condition()
+[INFO] 2019-09-07 08:32:24,384 >>	<<==== finish load_condition(): [elapsed time] >> 00:00:05
+[INFO] 2019-09-07 08:32:24,385 >>	====>> start  training()
+[INFO] 2019-09-07 08:40:43,169 >>	<<==== finish training(): [elapsed time] >> 00:08:18
+[INFO] 2019-09-07 08:40:43,171 >>	
+	== [0157] 0 fold best ==
+	epoch		: 5
+	train_loss	: 0.1768736456246937
+	valid_loss	: 0.19104200712938657
+	train_qwk	: 0.9409604036969783
+	valid_qwk	: 0.9268268886793066
+[INFO] 2019-09-07 08:40:43,172 >>	<< 0 fold finish >>
+[INFO] 2019-09-07 08:40:43,172 >>	<< 1 fold start  >>
+[INFO] 2019-09-07 08:40:43,172 >>	====>> start  data_preprocess()
+[INFO] 2019-09-07 08:40:43,188 >>	<<==== finish data_preprocess(): [elapsed time] >> 00:00:00
+[INFO] 2019-09-07 08:40:43,189 >>	====>> start  load_condition()
+[INFO] 2019-09-07 08:40:43,626 >>	<<==== finish load_condition(): [elapsed time] >> 00:00:00
+[INFO] 2019-09-07 08:40:43,627 >>	====>> start  training()
+[INFO] 2019-09-07 08:49:01,334 >>	<<==== finish training(): [elapsed time] >> 00:08:17
+[INFO] 2019-09-07 08:49:01,336 >>	
+	== [0157] 1 fold best ==
+	epoch		: 4
+	train_loss	: 0.1988610712263514
+	valid_loss	: 0.2072541930648998
+	train_qwk	: 0.9309248798781407
+	valid_qwk	: 0.9245445071109034
+[INFO] 2019-09-07 08:49:01,337 >>	<< 1 fold finish >>
+[INFO] 2019-09-07 08:49:01,337 >>	<< 2 fold start  >>
+[INFO] 2019-09-07 08:49:01,337 >>	====>> start  data_preprocess()
+[INFO] 2019-09-07 08:49:01,353 >>	<<==== finish data_preprocess(): [elapsed time] >> 00:00:00
+[INFO] 2019-09-07 08:49:01,354 >>	====>> start  load_condition()
+[INFO] 2019-09-07 08:49:01,788 >>	<<==== finish load_condition(): [elapsed time] >> 00:00:00
+[INFO] 2019-09-07 08:49:01,788 >>	====>> start  training()
+[INFO] 2019-09-07 08:57:20,545 >>	<<==== finish training(): [elapsed time] >> 00:08:18
+[INFO] 2019-09-07 08:57:20,547 >>	
+	== [0157] 2 fold best ==
+	epoch		: 14
+	train_loss	: 0.1551585929139572
+	valid_loss	: 0.16214352902545065
+	train_qwk	: 0.9477640621190829
+	valid_qwk	: 0.9410346290693385
+[INFO] 2019-09-07 08:57:20,548 >>	<< 2 fold finish >>
+[INFO] 2019-09-07 08:57:20,548 >>	<< 3 fold start  >>
+[INFO] 2019-09-07 08:57:20,549 >>	====>> start  data_preprocess()
+[INFO] 2019-09-07 08:57:20,565 >>	<<==== finish data_preprocess(): [elapsed time] >> 00:00:00
+[INFO] 2019-09-07 08:57:20,565 >>	====>> start  load_condition()
+[INFO] 2019-09-07 08:57:20,996 >>	<<==== finish load_condition(): [elapsed time] >> 00:00:00
+[INFO] 2019-09-07 08:57:20,997 >>	====>> start  training()
+[INFO] 2019-09-07 09:05:38,216 >>	<<==== finish training(): [elapsed time] >> 00:08:17
+[INFO] 2019-09-07 09:05:38,218 >>	
+	== [0157] 3 fold best ==
+	epoch		: 11
+	train_loss	: 0.14598408429061666
+	valid_loss	: 0.19404268624479992
+	train_qwk	: 0.9489878307820347
+	valid_qwk	: 0.9276273239257856
+[INFO] 2019-09-07 09:05:38,219 >>	<< 3 fold finish >>
+[INFO] 2019-09-07 09:05:38,219 >>	<< 4 fold start  >>
+[INFO] 2019-09-07 09:05:38,220 >>	====>> start  data_preprocess()
+[INFO] 2019-09-07 09:05:38,236 >>	<<==== finish data_preprocess(): [elapsed time] >> 00:00:00
+[INFO] 2019-09-07 09:05:38,237 >>	====>> start  load_condition()
+[INFO] 2019-09-07 09:05:38,678 >>	<<==== finish load_condition(): [elapsed time] >> 00:00:00
+[INFO] 2019-09-07 09:05:38,679 >>	====>> start  training()
+[INFO] 2019-09-07 09:13:58,930 >>	<<==== finish training(): [elapsed time] >> 00:08:20
+[INFO] 2019-09-07 09:13:58,932 >>	
+	== [0157] 4 fold best ==
+	epoch		: 14
+	train_loss	: 0.1490292089388651
+	valid_loss	: 0.19173301800799977
+	train_qwk	: 0.947775241966383
+	valid_qwk	: 0.9318413984381734
+[INFO] 2019-09-07 09:13:58,932 >>	<< 4 fold finish >>
+[INFO] 2019-09-07 09:13:58,967 >>	<<==== finish main(): [elapsed time] >> 00:41:40
