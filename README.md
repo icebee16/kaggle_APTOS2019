@@ -4,4 +4,4 @@ APTOS 2019 Blindness Detection : https://www.kaggle.com/c/aptos2019-blindness-de
 ## summary
 - みかん🍊 team Solution
 - teammate : [mocobt](https://github.com/j20232)
-- result : 52th
+- result : 48th
